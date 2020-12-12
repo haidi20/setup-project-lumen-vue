@@ -18,11 +18,8 @@ $router->get('/', function () use ($router) {
 $router->post('/login', 'AuthController@login');
 
 $router->get('/api/data', function() use ($router) {
-    return 'keren';
+    // return 'keren';
+    return base64_encode(str_random(32)).PHP_EOL;
 });
 
 $router->get('/api/posts',  ['uses' => 'PostController@index']);
-	
-// $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
-//     $router->post('posts',  ['uses' => 'PostController@index']);
-// });

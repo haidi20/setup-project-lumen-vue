@@ -4,21 +4,33 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Post;
 class PostController extends Controller
 {
     protected $pathUpload = "image_profile/";
 
     public function __construct()
     {
-        app('Illuminate\Http\Request');
+        // app('Illuminate\Http\Request');
     }
 
     public function index() {
         $paged = request("paged", 1);
-        $per_page = request("per_page", 10);
+        $perPage = request("per_page", 5);
 
-        $link = "https://youlead.id/wp-json/barav/v1/posts?paged=".$paged."&per_page=".$per_page;
-        $posts = $this->api($link)->original;
+        // $link = "https://youlead.id/wp-json/barav/v1/posts?paged=".$paged."&per_page=".$per_page;
+        // $posts = $this->api($link)->original;
+
+        // foreach($posts as $index => $item) {
+        //   $posts = new Post;
+        //   $posts->title = $item['title'];
+        //   $posts->date = $item['date'];
+        //   $posts->author = $item['author'];
+        //   $posts->save();
+        // }
+
+        $posts = Post::where('title', 'like', '%'.request('search').'%')
+                      ->paginate($perPage);
 
         return $this->responseWithSuccess($posts);
     }
