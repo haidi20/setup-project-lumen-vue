@@ -11,9 +11,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 // import axios from "axios";
 var fetchPost = function fetchPost() {
+  var data;
+
   _index["default"].get("/api/data").then(function (ress) {
-    console.log(ress.data);
+    data = ress.data;
   });
+
+  return data;
 };
 
 exports.fetchPost = fetchPost;

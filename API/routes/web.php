@@ -20,7 +20,9 @@ $router->post('/login', 'AuthController@login');
 $router->get('/api/data', function() use ($router) {
     return 'keren';
 });
+
+$router->get('/api/posts',  ['uses' => 'PostController@index']);
 	
-$router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
-    $router->post('posts',  ['uses' => 'PostController@index']);
-});
+// $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
+//     $router->post('posts',  ['uses' => 'PostController@index']);
+// });
