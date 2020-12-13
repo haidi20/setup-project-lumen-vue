@@ -7,12 +7,17 @@
         offset-md="2"
     >
         <h3>Dashboard Component</h3>
-        <v-select
-            v-model="pageSize"
-            :items="pageSizes"
-            label="Items per Page"
-            @change="PageSizeChange"
-        ></v-select>
+        <v-col
+            md="2"
+            sm="2"
+            xs="3"
+        >
+            <v-select
+                v-model="pageSize"
+                :items="pageSizes"
+                @change="PageSizeChange"
+            ></v-select>
+        </v-col>
         <v-data-table
             :headers="headers"
             :items="posts"
@@ -53,7 +58,6 @@
 <script>
 // import {fetchPost} from '../../api/services/PostService'
 import http from '../../api'
-
   export default {
     name: 'HelloWorld',
     props: ['link'],
@@ -122,3 +126,13 @@ import http from '../../api'
     }
   }
 </script>
+
+<style>
+    .v-select__slot, .v-input__slot {
+        text-align: center;
+        max-width: 3.5em !important;
+    }
+    .v-text-field__details {
+        display:none !important;
+    }
+</style>
