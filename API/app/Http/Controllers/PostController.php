@@ -17,7 +17,7 @@ class PostController extends Controller
         $paged = request("paged", 1);
         $perPage = request("per_page", 5);
 
-        $posts = Post::where('title', 'like', '%'.request('search').'%')
+        $posts = Post::search()
                       ->paginate($perPage);
 
         return $this->responseWithSuccess($posts);

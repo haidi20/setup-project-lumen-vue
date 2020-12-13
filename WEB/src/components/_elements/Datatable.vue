@@ -7,17 +7,31 @@
         offset-md="2"
     >
         <h3>Dashboard Component</h3>
-        <v-col
-            md="2"
-            sm="2"
-            xs="3"
-        >
-            <v-select
-                v-model="pageSize"
-                :items="pageSizes"
-                @change="PageSizeChange"
-            ></v-select>
-        </v-col>
+        <v-row>
+            <v-col
+                md="2"
+                sm="2"
+                xs="3"
+            >
+                <v-select
+                    v-model="pageSize"
+                    :items="pageSizes"
+                    @change="PageSizeChange"
+                    class="select-page-size"
+                ></v-select>
+            </v-col>
+            <v-col
+                md="3"
+                offset-md="7"
+                class="space-search"
+            >
+                <v-text-field 
+                    label="search"
+                    v-model="search"
+                    single-line 
+                />
+            </v-col>
+        </v-row>
         <v-data-table
             :headers="headers"
             :items="posts"
@@ -25,6 +39,7 @@
             :loading="loading"
             loading-text="Loading.."
             :hide-default-footer="true"
+            id="data-table"
         >
             <template v-slot:[`item.number`]="{ item }"> 
                 {{ numberData(item) }}
@@ -49,6 +64,7 @@
             next-icon="mdi-menu-right"
             prev-icon="mdi-menu-left"
             @input="PageChange"
+            :disabled="loading"
             style="float:right"
         ></v-pagination>
     </v-col>
@@ -66,7 +82,7 @@ import http from '../../api'
             posts: [],
             searchTitle: "",
             headers: [
-                { text: "No.", sortable: false, value: "number" },
+                { text: "No.", sortable: false, value: "number", },
                 { text: "Actions", value: "actions", sortable: false, align: "start" },
                 { text: "Title", sortable: false, value: "title" },
                 { text: "Date", value: "date", sortable: false },
@@ -77,6 +93,8 @@ import http from '../../api'
             pageSize: 5,
             pageSizes: [5, 10],
             loading: false,
+            search: '',
+            awaitingSearch: false,
         }
     },
     mounted() {
@@ -86,8 +104,10 @@ import http from '../../api'
         fetchData() {
             const params = {
                 page: this.page,
+                search: this.search,
                 per_page: this.pageSize,
             }
+
             this.posts = [];
             this.loading = true;
             http.get(`/api${this.link}`, {params})
@@ -96,7 +116,6 @@ import http from '../../api'
                 this.posts = data.data;
                 this.totalPages = data.last_page;
                 this.loading = false;
-                console.log(data);
             });
         },
         edit(id) {
@@ -122,17 +141,39 @@ import http from '../../api'
             }else {
                 return (number + this.pageSize);
             }
+        },
+    },
+    watch: {
+        search: function() {
+            if (!this.awaitingSearch) {
+                setTimeout(() => {
+                    this.fetchData();
+                    this.awaitingSearch = false;
+                }, 2000); // 1 sec delay
+            }
+
+            this.awaitingSearch = true;
         }
     }
   }
 </script>
 
 <style>
-    .v-select__slot, .v-input__slot {
+    #data-table table thead tr th {
+        color: white;
+        background: #42A5F5;
+    }
+    .select-page-size {
         text-align: center;
         max-width: 3.5em !important;
     }
     .v-text-field__details {
         display:none !important;
+    }
+    .space-search {
+        padding-top: 3em;
+    }
+    .v-input-search {
+        max-width: 100% !important;
     }
 </style>
