@@ -12,6 +12,7 @@
                 md="2"
                 sm="2"
                 xs="3"
+                class="space-pagesize"
             >
                 <v-select
                     v-model="pageSize"
@@ -158,7 +159,7 @@ import http from '../../api'
   }
 </script>
 
-<style>
+<style scoped>
     #data-table table thead tr th {
         color: white;
         background: #42A5F5;
@@ -171,6 +172,9 @@ import http from '../../api'
         display:none !important;
     }
     .space-search {
+        padding-top: 3em;
+    }
+    .space-pagesize {
         padding-top: 3em;
     }
     .v-input-search {
