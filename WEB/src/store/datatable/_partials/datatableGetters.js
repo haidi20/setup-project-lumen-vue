@@ -8,6 +8,12 @@ const datatableGetters = {
             return (number + state.pageSize);
         }
     },
+    headers: state => {
+        return state.headers;
+    },
+    items: state => {
+        return state.data;
+    },
 };
 
 export default datatableGetters;

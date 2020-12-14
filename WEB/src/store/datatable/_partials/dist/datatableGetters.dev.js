@@ -17,6 +17,12 @@ var datatableGetters = {
         return number + state.pageSize;
       }
     };
+  },
+  headers: function headers(state) {
+    return state.headers;
+  },
+  items: function items(state) {
+    return state.data;
   }
 };
 var _default = datatableGetters;

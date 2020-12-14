@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _api = _interopRequireDefault(require("../../api"));
-
 var _datatableState = _interopRequireDefault(require("./_partials/datatableState"));
 
 var _datatableGetters = _interopRequireDefault(require("./_partials/datatableGetters"));

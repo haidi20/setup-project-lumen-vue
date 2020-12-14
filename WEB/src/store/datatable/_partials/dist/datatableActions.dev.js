@@ -4,45 +4,52 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
+
+var _api = _interopRequireDefault(require("../../../api"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
 var datatableActions = {
   fetchData: function fetchData(_ref, payload) {
-    var commit;
+    var commit, state, params;
     return regeneratorRuntime.async(function fetchData$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            commit = _ref.commit;
-            // const params = {
-            //     page: state.page,
-            //     search: state.search,
-            //     per_page: state.pageSize,
-            // }
+            commit = _ref.commit, state = _ref.state;
+            params = {
+              page: state.page,
+              search: state.search,
+              per_page: state.pageSize
+            };
             commit('NULL_DATA');
             commit('LOADING_TRUE');
-            _context.prev = 3;
-            _context.next = 6;
-            return regeneratorRuntime.awrap(http.get("/api".concat(payload.dataLink)).then(function (ress) {
-              var data = ress.data.data;
-              commit('INSERT_DATA', data);
+            _context.prev = 4;
+            _context.next = 7;
+            return regeneratorRuntime.awrap(_api["default"].get("/api".concat(payload.dataLink), {
+              params: params
+            }).then(function (ress) {
+              var fetchResponse = ress.data.data;
+              commit('INSERT_DATA', fetchResponse);
               commit('LOADING_FALSE');
             }));
 
-          case 6:
-            _context.next = 12;
+          case 7:
+            _context.next = 13;
             break;
 
-          case 8:
-            _context.prev = 8;
-            _context.t0 = _context["catch"](3);
+          case 9:
+            _context.prev = 9;
+            _context.t0 = _context["catch"](4);
             console.log('error fetch data = ' + _context.t0);
             return _context.abrupt("return", null);
 
-          case 12:
+          case 13:
           case "end":
             return _context.stop();
         }
       }
-    }, null, null, [[3, 8]]);
+    }, null, null, [[4, 9]]);
   } // PageChange({ commit }) {
   //     // state.page = value;
   //     // this.fetchData();

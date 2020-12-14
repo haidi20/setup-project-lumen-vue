@@ -34,8 +34,8 @@
             </v-col>
         </v-row> -->
         <v-data-table
-            :headers="this.$store.state.datatable.headers"
-            :items="this.$store.state.datatable.data"
+            :headers="headers"
+            :items="items"
             disable-pagination
             :loading="this.$store.state.datatable.loading"
             loading-text="Loading.."
@@ -83,27 +83,19 @@ import {mapGetters} from 'vuex'
         editData: Function,
         removeData: Function,
     },
-    data() {
-        return {
-            
-        }
-    },
-    computed:{
+    computed:{  
         ...mapGetters('datatable', [
-            "getNumberData",
+            "getNumberData", "items", "headers" 
         ]),
-    },
+    },   
     mounted() {
         this.$store.dispatch('datatable/fetchData', {dataLink: this.dataLink});
     },
     methods: {
         numberData(item) {
             return this.getNumberData(item);
-        }
+        },
     },
-    watch: {
-        
-    }
   }
 </script>
 

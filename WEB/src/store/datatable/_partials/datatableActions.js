@@ -1,17 +1,20 @@
+import http from '../../../api'
+
 const datatableActions = {
-    async fetchData({ commit }, payload) {
-        // const params = {
-        //     page: state.page,
-        //     search: state.search,
-        //     per_page: state.pageSize,
-        // }
+    async fetchData({ commit, state }, payload) {
+        const params = {
+            page: state.page,
+            search: state.search,
+            per_page: state.pageSize,
+        }
+
         commit('NULL_DATA');
         commit('LOADING_TRUE');
         try {
-            await http.get(`/api${payload.dataLink}`)
+            await http.get(`/api${payload.dataLink}`, { params })
                 .then(ress => {
-                    let data = ress.data.data;
-                    commit('INSERT_DATA', data);
+                    let fetchResponse = ress.data.data;
+                    commit('INSERT_DATA', fetchResponse);
                     commit('LOADING_FALSE');
                 });
         } catch (error) {

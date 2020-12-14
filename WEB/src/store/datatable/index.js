@@ -1,5 +1,3 @@
-import http from '../../api'
-
 // partials
 import datatableState from './_partials/datatableState'
 import datatableGetters from './_partials/datatableGetters'
