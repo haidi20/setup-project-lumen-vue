@@ -8,32 +8,24 @@
         md="12"
     >
         <h2> {{titlePage}} </h2>
-        <v-row>
-            <v-col
-                md="2"
-                sm="2"
-                xs="3"
-                class="space-pagesize"
-            >
-                <v-select
-                    v-model="pageSize"
-                    :items="getListPageSizes"
-                    
-                    class="select-page-size"
-                />
-            </v-col>
-            <v-col
-                md="3"
-                offset-md="7"
-                class="space-search"
-            >
-                <!-- <v-text-field 
+        <div class="space-top-datatable">
+            <p style="display:inline-block">show</p>
+            <v-select
+                v-model="pageSize"
+                :items="getListPageSizes"
+                
+                class="select-page-size"
+            />
+            <p style="display:inherit">entires</p>
+            <div class="space-search">
+                <v-text-field 
+                    class="search"
                     label="search"
                     v-model="search"
                     single-line 
-                /> -->
-            </v-col>
-        </v-row>
+                />
+            </div>
+        </div>
         <v-data-table
             :headers="getHeaders"
             :items="getItems"
@@ -121,19 +113,24 @@ import {mapGetters} from 'vuex'
         background: #42A5F5 !important;
     }
     .select-page-size {
+        margin: 0px 7px;
+        display: inherit;
         text-align: center;
         max-width: 3.5em !important;
     }
+    .space-search {
+        float:right;
+        display:inherit; 
+    }
     .v-text-field__details {
         display:none !important;
-    }
-    .space-search {
-        padding-top: 3em;
-    }
-    .space-pagesize {
-        padding-top: 3em;
-    }
+    }    
     .v-input-search {
         max-width: 100% !important;
+    }
+    .space-top-datatable {
+        width: 100%;
+        height: 3em;
+        display: inline-block;
     }
 </style>

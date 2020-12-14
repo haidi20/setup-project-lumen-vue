@@ -63,8 +63,6 @@ var datatableActions = {
 
     if (state.page != payload.page) {
       commit('INSERT_PAGE', payload);
-    } else {
-      return false;
     }
   },
   pageSizeChange: function pageSizeChange(_ref4, payload) {
@@ -73,11 +71,8 @@ var datatableActions = {
         state = _ref4.state;
 
     if (state.pageSize != payload.pageSize) {
-      console.log('tidak sama');
       commit('PAGE_SIZE_CHANGE', payload);
       dispatch('fetchData');
-    } else {
-      return false;
     }
   } // watchSearch: function({ commit }) {
   //     // if (!state.awaitingSearch) {
