@@ -11,9 +11,10 @@ const datatableState = {
     totalPages: 0,
     pageSize: 5,
     pageSizes: [5, 10],
-    loading: false,
+    loading: true,
     search: '',
     awaitingSearch: false,
+    dataLink: '',
 }
 
 export default datatableState;

@@ -1,13 +1,14 @@
 <template>
-  <v-container >
+  <v-container 
+    fluid
+  >
     <v-col
         sm="12"
         xs="12"
-        md="8"
-        offset-md="2"
+        md="12"
     >
-        <h3>Dashboard Component</h3>
-        <!-- <v-row>
+        <h2> {{titlePage}} </h2>
+        <v-row>
             <v-col
                 md="2"
                 sm="2"
@@ -16,28 +17,28 @@
             >
                 <v-select
                     v-model="pageSize"
-                    :items="pageSizes"
-                    @change="PageSizeChange"
+                    :items="getListPageSizes"
+                    @change="pageSizeChange"
                     class="select-page-size"
-                ></v-select>
+                />
             </v-col>
             <v-col
                 md="3"
                 offset-md="7"
                 class="space-search"
             >
-                <v-text-field 
+                <!-- <v-text-field 
                     label="search"
                     v-model="search"
                     single-line 
-                />
+                /> -->
             </v-col>
-        </v-row> -->
+        </v-row>
         <v-data-table
-            :headers="headers"
-            :items="items"
+            :headers="getHeaders"
+            :items="getItems"
             disable-pagination
-            :loading="this.$store.state.datatable.loading"
+            :loading="isLoading"
             loading-text="Loading.."
             :hide-default-footer="true"
             class="elevation-1"
@@ -80,21 +81,36 @@ import {mapGetters} from 'vuex'
     name: 'HelloWorld',
     props: {
         dataLink: String,
+        titlePage: String,
         editData: Function,
         removeData: Function,
     },
     computed:{  
         ...mapGetters('datatable', [
-            "getNumberData", "items", "headers" 
+            "getNoData", "getItems", "getHeaders", "isLoading",
+            "getPageSize", "getListPageSizes" 
         ]),
+        pageSize: {
+            get(){
+                return this.getPageSize;
+            },
+            set(value){
+                this.$store.dispatch('datatable/pageChange', {page: value});
+            }
+        }
     },   
     mounted() {
-        this.$store.dispatch('datatable/fetchData', {dataLink: this.dataLink});
+        this.$store.dispatch('datatable/setDataLink', {dataLink: this.dataLink});
+        this.$store.dispatch('datatable/fetchData');
     },
     methods: {
         numberData(item) {
-            return this.getNumberData(item);
+            return this.getNoData(item);
         },
+        pageSizeChange(item) {
+            console.log(item);
+            this.$store.dispatch("datatable/pageSizeChange", {size: item});
+        }
     },
   }
 </script>

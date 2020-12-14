@@ -5,7 +5,22 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 var datatableGetters = {
-  getNumberData: function getNumberData(state) {
+  getHeaders: function getHeaders(state) {
+    return state.headers;
+  },
+  getItems: function getItems(state) {
+    return state.data;
+  },
+  getPageSize: function getPageSize(state) {
+    return state.pageSize;
+  },
+  getListPageSizes: function getListPageSizes(state) {
+    return state.pageSizes;
+  },
+  isLoading: function isLoading(state) {
+    return state.loading;
+  },
+  getNoData: function getNoData(state) {
     return function (item) {
       var number = state.data.map(function (x) {
         return x.id;
@@ -17,12 +32,6 @@ var datatableGetters = {
         return number + state.pageSize;
       }
     };
-  },
-  headers: function headers(state) {
-    return state.headers;
-  },
-  items: function items(state) {
-    return state.data;
   }
 };
 var _default = datatableGetters;

@@ -1,17 +1,20 @@
 import http from '../../../api'
 
 const datatableActions = {
-    async fetchData({ commit, state }, payload) {
+    async fetchData({ commit, state }) {
         const params = {
             page: state.page,
             search: state.search,
             per_page: state.pageSize,
         }
 
+        console.log('fetchData');
+
         commit('NULL_DATA');
         commit('LOADING_TRUE');
+        console.log('data = ' + state.data);
         try {
-            await http.get(`/api${payload.dataLink}`, { params })
+            await http.get(`/api${state.dataLink}`, { params })
                 .then(ress => {
                     let fetchResponse = ress.data.data;
                     commit('INSERT_DATA', fetchResponse);
@@ -22,15 +25,16 @@ const datatableActions = {
             return (null);
         }
     },
-    // PageChange({ commit }) {
-    //     // state.page = value;
-    //     // this.fetchData();
-    // },
-    // PageSizeChange({ commit }) {
-    //     // state.page = 1;
-    //     // state.pageSize = size;
-    //     // state.fetchData();
-    // },
+    setDataLink({ commit }, payload) {
+        commit('INSERT_DATA_LINK', payload);
+    },
+    pageChange({ commit, dispatch }, payload) {
+        commit('INSERT_PAGE', payload);
+    },
+    pageSizeChange({ commit, dispatch }, payload) {
+        commit('PAGE_SIZE_CHANGE', payload);
+        dispatch('fetchData');
+    },
     // watchSearch: function({ commit }) {
     //     // if (!state.awaitingSearch) {
     //     //     setTimeout(() => {

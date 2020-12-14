@@ -10,7 +10,7 @@ var _api = _interopRequireDefault(require("../../../api"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var datatableActions = {
-  fetchData: function fetchData(_ref, payload) {
+  fetchData: function fetchData(_ref) {
     var commit, state, params;
     return regeneratorRuntime.async(function fetchData$(_context) {
       while (1) {
@@ -22,11 +22,13 @@ var datatableActions = {
               search: state.search,
               per_page: state.pageSize
             };
+            console.log('fetchData');
             commit('NULL_DATA');
             commit('LOADING_TRUE');
-            _context.prev = 4;
-            _context.next = 7;
-            return regeneratorRuntime.awrap(_api["default"].get("/api".concat(payload.dataLink), {
+            console.log('data = ' + state.data);
+            _context.prev = 6;
+            _context.next = 9;
+            return regeneratorRuntime.awrap(_api["default"].get("/api".concat(state.dataLink), {
               params: params
             }).then(function (ress) {
               var fetchResponse = ress.data.data;
@@ -34,32 +36,38 @@ var datatableActions = {
               commit('LOADING_FALSE');
             }));
 
-          case 7:
-            _context.next = 13;
+          case 9:
+            _context.next = 15;
             break;
 
-          case 9:
-            _context.prev = 9;
-            _context.t0 = _context["catch"](4);
+          case 11:
+            _context.prev = 11;
+            _context.t0 = _context["catch"](6);
             console.log('error fetch data = ' + _context.t0);
             return _context.abrupt("return", null);
 
-          case 13:
+          case 15:
           case "end":
             return _context.stop();
         }
       }
-    }, null, null, [[4, 9]]);
-  } // PageChange({ commit }) {
-  //     // state.page = value;
-  //     // this.fetchData();
-  // },
-  // PageSizeChange({ commit }) {
-  //     // state.page = 1;
-  //     // state.pageSize = size;
-  //     // state.fetchData();
-  // },
-  // watchSearch: function({ commit }) {
+    }, null, null, [[6, 11]]);
+  },
+  setDataLink: function setDataLink(_ref2, payload) {
+    var commit = _ref2.commit;
+    commit('INSERT_DATA_LINK', payload);
+  },
+  pageChange: function pageChange(_ref3, payload) {
+    var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
+    commit('INSERT_PAGE', payload);
+  },
+  pageSizeChange: function pageSizeChange(_ref4, payload) {
+    var commit = _ref4.commit,
+        dispatch = _ref4.dispatch;
+    commit('PAGE_SIZE_CHANGE', payload);
+    dispatch('fetchData');
+  } // watchSearch: function({ commit }) {
   //     // if (!state.awaitingSearch) {
   //     //     setTimeout(() => {
   //     //         // this.fetchData();

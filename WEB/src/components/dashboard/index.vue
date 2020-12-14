@@ -3,6 +3,7 @@
         <Datatable
             v-bind:dataLink="dataLink" 
             v-bind:editData="editData"
+            titlePage="Dashboard"
             v-bind:removeData="removeData"
          />
     </div>
@@ -16,7 +17,8 @@ import Datatable from '../_elements/Datatable'
       },
       data() {
           return {
-              dataLink: "/posts"
+              dataLink: "/posts",
+              titlePage: "Dashboard",
           }
       },
       methods: {

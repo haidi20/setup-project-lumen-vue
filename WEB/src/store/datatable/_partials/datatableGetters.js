@@ -1,5 +1,20 @@
 const datatableGetters = {
-    getNumberData: state => item => {
+    getHeaders: state => {
+        return state.headers;
+    },
+    getItems: state => {
+        return state.data;
+    },
+    getPageSize: state => {
+        return state.pageSize;
+    },
+    getListPageSizes: state => {
+        return state.pageSizes;
+    },
+    isLoading: state => {
+        return state.loading;
+    },
+    getNoData: state => item => {
         let number = state.data.map(function(x) { return x.id; }).indexOf(item.id) + 1;
 
         if (state.page == 1) {
@@ -7,12 +22,6 @@ const datatableGetters = {
         } else {
             return (number + state.pageSize);
         }
-    },
-    headers: state => {
-        return state.headers;
-    },
-    items: state => {
-        return state.data;
     },
 };
 
