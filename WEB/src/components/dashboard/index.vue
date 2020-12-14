@@ -1,7 +1,9 @@
 <template>
     <div>
         <Datatable
-            v-bind:link="link" 
+            v-bind:dataLink="dataLink" 
+            v-bind:editData="editData"
+            v-bind:removeData="removeData"
          />
     </div>
 </template>
@@ -14,9 +16,17 @@ import Datatable from '../_elements/Datatable'
       },
       data() {
           return {
-              link: "/posts"
+              dataLink: "/posts"
           }
       },
+      methods: {
+          editData(id) {
+              console.log(id);
+          },
+          removeData(id) {
+              console.log('delete data ' + id);
+          },
+      }
     }
 </script>
 

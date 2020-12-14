@@ -1,13 +1,14 @@
 import Vue from 'vue'
-import AxiosPlugin from 'vue-axios-cors';
-
+import vuetify from './plugins/vuetify'
+import AxiosPlugin from 'vue-axios-cors'
 import Layout from './components/_layouts'
-import vuetify from './plugins/vuetify';
+import store from './store'
 
 Vue.use(AxiosPlugin)
 Vue.config.productionTip = false
 
 new Vue({
     vuetify,
-    render: h => h(Layout)
+    store,
+    render: h => h(Layout),
 }).$mount('#app')

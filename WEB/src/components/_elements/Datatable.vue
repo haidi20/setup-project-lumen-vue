@@ -7,7 +7,7 @@
         offset-md="2"
     >
         <h3>Dashboard Component</h3>
-        <v-row>
+        <!-- <v-row>
             <v-col
                 md="2"
                 sm="2"
@@ -32,24 +32,24 @@
                     single-line 
                 />
             </v-col>
-        </v-row>
+        </v-row> -->
         <v-data-table
-            :headers="headers"
-            :items="posts"
+            :headers="this.$store.state.datatable.headers"
+            :items="this.$store.state.datatable.data"
             disable-pagination
-            :loading="loading"
+            :loading="this.$store.state.datatable.loading"
             loading-text="Loading.."
             :hide-default-footer="true"
-            id="data-table"
+            class="elevation-1"
         >
             <template v-slot:[`item.number`]="{ item }"> 
                 {{ numberData(item) }}
             </template>
             <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="edit(item.id)">
+            <v-icon small color="primary" class="mr-2" @click="editData(item.id)">
                 mdi-pencil
             </v-icon>
-            <v-icon small @click="remove(item.id)">
+            <v-icon small color="red" @click="removeData(item.id)">
                 mdi-delete
             </v-icon>
             </template>
@@ -58,7 +58,7 @@
             </template>
         </v-data-table>
         <br>
-        <v-pagination
+        <!-- <v-pagination
             v-model="page"
             :length="totalPages"
             total-visible="7"
@@ -67,102 +67,51 @@
             @input="PageChange"
             :disabled="loading"
             style="float:right"
-        ></v-pagination>
+        ></v-pagination> -->
     </v-col>
   </v-container>
 </template>
 
 <script>
 // import {fetchPost} from '../../api/services/PostService'
-import http from '../../api'
+import {mapGetters} from 'vuex'
+
   export default {
     name: 'HelloWorld',
-    props: ['link'],
+    props: {
+        dataLink: String,
+        editData: Function,
+        removeData: Function,
+    },
     data() {
         return {
-            posts: [],
-            searchTitle: "",
-            headers: [
-                { text: "No.", sortable: false, value: "number", },
-                { text: "Actions", value: "actions", sortable: false, align: "start" },
-                { text: "Title", sortable: false, value: "title" },
-                { text: "Date", value: "date", sortable: false },
-                { text: "Author", value: "author", sortable: false },
-            ],
-            page: 1,
-            totalPages: 0,
-            pageSize: 5,
-            pageSizes: [5, 10],
-            loading: false,
-            search: '',
-            awaitingSearch: false,
+            
         }
+    },
+    computed:{
+        ...mapGetters('datatable', [
+            "getNumberData",
+        ]),
     },
     mounted() {
-        this.fetchData();
+        this.$store.dispatch('datatable/fetchData', {dataLink: this.dataLink});
     },
     methods: {
-        fetchData() {
-            const params = {
-                page: this.page,
-                search: this.search,
-                per_page: this.pageSize,
-            }
-
-            this.posts = [];
-            this.loading = true;
-            http.get(`/api${this.link}`, {params})
-            .then(ress => {
-                let data = ress.data.data; 
-                this.posts = data.data;
-                this.totalPages = data.last_page;
-                this.loading = false;
-            });
-        },
-        edit(id) {
-            alert(id);
-        },
-        remove(id) {
-            alert(id);
-        },
-        PageChange(value) {
-            this.page = value;
-            this.fetchData();
-        },
-        PageSizeChange(size) {
-            this.page = 1;
-            this.pageSize = size;
-            this.fetchData();
-        },
         numberData(item) {
-            let number = this.posts.map(function(x) {return x.id; }).indexOf(item.id) + 1;
-            
-            if(this.page == 1) {
-                return number;
-            }else {
-                return (number + this.pageSize);
-            }
-        },
+            return this.getNumberData(item);
+        }
     },
     watch: {
-        search: function() {
-            if (!this.awaitingSearch) {
-                setTimeout(() => {
-                    this.fetchData();
-                    this.awaitingSearch = false;
-                }, 2000); // 1 sec delay
-            }
-
-            this.awaitingSearch = true;
-        }
+        
     }
   }
 </script>
 
-<style scoped>
-    #data-table table thead tr th {
-        color: white;
-        background: #42A5F5;
+<style lang="css" scoped>   
+    /* masih belum mau berubah warna header */
+    .bg-header-info {
+        color: white !important;
+        background: #42A5F5 !important;
     }
     .select-page-size {
         text-align: center;
