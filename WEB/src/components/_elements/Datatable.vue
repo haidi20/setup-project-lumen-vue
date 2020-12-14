@@ -18,7 +18,7 @@
                 <v-select
                     v-model="pageSize"
                     :items="getListPageSizes"
-                    @change="pageSizeChange"
+                    
                     class="select-page-size"
                 />
             </v-col>
@@ -95,7 +95,7 @@ import {mapGetters} from 'vuex'
                 return this.getPageSize;
             },
             set(value){
-                this.$store.dispatch('datatable/pageChange', {page: value});
+                this.$store.dispatch("datatable/pageSizeChange", {pageSize: value});
             }
         }
     },   
@@ -104,13 +104,12 @@ import {mapGetters} from 'vuex'
         this.$store.dispatch('datatable/fetchData');
     },
     methods: {
-        numberData(item) {
-            return this.getNoData(item);
+        numberData(value) {
+            return this.getNoData(value);
         },
-        pageSizeChange(item) {
-            console.log(item);
-            this.$store.dispatch("datatable/pageSizeChange", {size: item});
-        }
+        // pageSizeChange(value) {
+        //     this.$store.dispatch("datatable/pageSizeChange", {pageSize: value});
+        // }
     },
   }
 </script>

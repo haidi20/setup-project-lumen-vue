@@ -14,7 +14,7 @@ const datatableMutations = {
     },
     PAGE_SIZE_CHANGE: (state, payload) => {
         state.page = 1;
-        state.pageSize = payload.size;
+        state.pageSize = payload.pageSize;
     },
     LOADING_TRUE: (state) => {
         state.loading = true;

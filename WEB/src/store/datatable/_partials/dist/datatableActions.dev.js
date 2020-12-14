@@ -59,14 +59,26 @@ var datatableActions = {
   },
   pageChange: function pageChange(_ref3, payload) {
     var commit = _ref3.commit,
-        dispatch = _ref3.dispatch;
-    commit('INSERT_PAGE', payload);
+        state = _ref3.state;
+
+    if (state.page != payload.page) {
+      commit('INSERT_PAGE', payload);
+    } else {
+      return false;
+    }
   },
   pageSizeChange: function pageSizeChange(_ref4, payload) {
     var commit = _ref4.commit,
-        dispatch = _ref4.dispatch;
-    commit('PAGE_SIZE_CHANGE', payload);
-    dispatch('fetchData');
+        dispatch = _ref4.dispatch,
+        state = _ref4.state;
+
+    if (state.pageSize != payload.pageSize) {
+      console.log('tidak sama');
+      commit('PAGE_SIZE_CHANGE', payload);
+      dispatch('fetchData');
+    } else {
+      return false;
+    }
   } // watchSearch: function({ commit }) {
   //     // if (!state.awaitingSearch) {
   //     //     setTimeout(() => {
