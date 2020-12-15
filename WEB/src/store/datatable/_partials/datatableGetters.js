@@ -14,6 +14,9 @@ const datatableGetters = {
     isLoading: state => {
         return state.loading;
     },
+    getSearch: state => {
+        return state.search;
+    },
     getNoData: state => item => {
         let number = state.data.map(function(x) { return x.id; }).indexOf(item.id) + 1;
 

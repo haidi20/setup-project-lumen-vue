@@ -20,6 +20,9 @@ var datatableGetters = {
   isLoading: function isLoading(state) {
     return state.loading;
   },
+  getSearch: function getSearch(state) {
+    return state.search;
+  },
   getNoData: function getNoData(state) {
     return function (item) {
       var number = state.data.map(function (x) {

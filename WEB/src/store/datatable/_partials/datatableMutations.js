@@ -22,6 +22,15 @@ const datatableMutations = {
     LOADING_FALSE: (state) => {
         state.loading = false;
     },
+    KEYUP_SEARCH: (state, payload) => {
+        state.search = payload.search;
+    },
+    WAITING_SEARCH_TRUE: (state) => {
+        state.waitingSearch = true;
+    },
+    WAITING_SEARCH_FALSE: (state) => {
+        state.waitingSearch = false;
+    },
 }
 
 export default datatableMutations;

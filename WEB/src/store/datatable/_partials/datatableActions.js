@@ -8,11 +8,8 @@ const datatableActions = {
             per_page: state.pageSize,
         }
 
-        console.log('fetchData');
-
         commit('NULL_DATA');
         commit('LOADING_TRUE');
-        console.log('data = ' + state.data);
         try {
             await http.get(`/api${state.dataLink}`, { params })
                 .then(ress => {
@@ -39,27 +36,19 @@ const datatableActions = {
             dispatch('fetchData');
         }
     },
-    // watchSearch: function({ commit }) {
-    //     // if (!state.awaitingSearch) {
-    //     //     setTimeout(() => {
-    //     //         // this.fetchData();
-    //     //         state.awaitingSearch = false;
-    //     //     }, 2000); // 2 sec delay
-    //     // }
+    keyUpSearch: function({ commit }, payload) {
+        commit('KEYUP_SEARCH', payload);
+    },
+    streamSearch: function({ commit, state, dispatch }) {
+        if (!state.waitingSearch) {
+            setTimeout(() => {
+                commit('WAITING_SEARCH_FALSE');
+                dispatch('fetchData');
+            }, 2000); // 2 sec delay
+        }
 
-    //     // state.awaitingSearch = true;
-    // },
-    // save_donasi({ commit, rootState }, payload) {
-    //     // rootState BERARTI MENGAKSES STATE YANG TIDAK BERADA DALAM MODULES
-    //     // DALAM HAL INI STATE isLoading YANG ADA DI DALAM FILE store.js
-    //     rootState.isLoading = true //SET TRUE UNTUK MEMBERIKAN EFEK LOADING
-    //     setTimeout(() => {
-    //         //MENGINSTRUKSIKAN PADA MUTATIONS TERKAIT UNTUK MENJALANKAN INSTRUKSINYA
-    //         commit('ADD_DONASI', payload)
-    //         // STATE isLoading DI MATIKAN KEMBALI
-    //         rootState.isLoading = false
-    //     }, 1000)
-    // }
+        commit('WAITING_SEARCH_TRUE');
+    }
 }
 
 export default datatableActions;

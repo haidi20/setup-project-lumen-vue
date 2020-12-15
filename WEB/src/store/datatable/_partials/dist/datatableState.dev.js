@@ -39,7 +39,7 @@ var datatableState = {
   pageSizes: [5, 10],
   loading: true,
   search: '',
-  awaitingSearch: false,
+  waitingSearch: false,
   dataLink: ''
 };
 var _default = datatableState;

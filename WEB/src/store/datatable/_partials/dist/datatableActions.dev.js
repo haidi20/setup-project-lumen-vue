@@ -22,12 +22,10 @@ var datatableActions = {
               search: state.search,
               per_page: state.pageSize
             };
-            console.log('fetchData');
             commit('NULL_DATA');
             commit('LOADING_TRUE');
-            console.log('data = ' + state.data);
-            _context.prev = 6;
-            _context.next = 9;
+            _context.prev = 4;
+            _context.next = 7;
             return regeneratorRuntime.awrap(_api["default"].get("/api".concat(state.dataLink), {
               params: params
             }).then(function (ress) {
@@ -36,22 +34,22 @@ var datatableActions = {
               commit('LOADING_FALSE');
             }));
 
-          case 9:
-            _context.next = 15;
+          case 7:
+            _context.next = 13;
             break;
 
-          case 11:
-            _context.prev = 11;
-            _context.t0 = _context["catch"](6);
+          case 9:
+            _context.prev = 9;
+            _context.t0 = _context["catch"](4);
             console.log('error fetch data = ' + _context.t0);
             return _context.abrupt("return", null);
 
-          case 15:
+          case 13:
           case "end":
             return _context.stop();
         }
       }
-    }, null, null, [[6, 11]]);
+    }, null, null, [[4, 9]]);
   },
   setDataLink: function setDataLink(_ref2, payload) {
     var commit = _ref2.commit;
@@ -74,27 +72,25 @@ var datatableActions = {
       commit('PAGE_SIZE_CHANGE', payload);
       dispatch('fetchData');
     }
-  } // watchSearch: function({ commit }) {
-  //     // if (!state.awaitingSearch) {
-  //     //     setTimeout(() => {
-  //     //         // this.fetchData();
-  //     //         state.awaitingSearch = false;
-  //     //     }, 2000); // 2 sec delay
-  //     // }
-  //     // state.awaitingSearch = true;
-  // },
-  // save_donasi({ commit, rootState }, payload) {
-  //     // rootState BERARTI MENGAKSES STATE YANG TIDAK BERADA DALAM MODULES
-  //     // DALAM HAL INI STATE isLoading YANG ADA DI DALAM FILE store.js
-  //     rootState.isLoading = true //SET TRUE UNTUK MEMBERIKAN EFEK LOADING
-  //     setTimeout(() => {
-  //         //MENGINSTRUKSIKAN PADA MUTATIONS TERKAIT UNTUK MENJALANKAN INSTRUKSINYA
-  //         commit('ADD_DONASI', payload)
-  //         // STATE isLoading DI MATIKAN KEMBALI
-  //         rootState.isLoading = false
-  //     }, 1000)
-  // }
+  },
+  keyUpSearch: function keyUpSearch(_ref5, payload) {
+    var commit = _ref5.commit;
+    commit('KEYUP_SEARCH', payload);
+  },
+  streamSearch: function streamSearch(_ref6) {
+    var commit = _ref6.commit,
+        state = _ref6.state,
+        dispatch = _ref6.dispatch;
 
+    if (!state.waitingSearch) {
+      setTimeout(function () {
+        commit('WAITING_SEARCH_FALSE');
+        dispatch('fetchData');
+      }, 2000); // 2 sec delay
+    }
+
+    commit('WAITING_SEARCH_TRUE');
+  }
 };
 var _default = datatableActions;
 exports["default"] = _default;

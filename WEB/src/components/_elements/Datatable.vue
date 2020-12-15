@@ -17,12 +17,12 @@
             />
             <p style="display:inherit">entires</p>
             <div class="space-search">
-                <!-- <v-text-field 
+                <v-text-field 
                     class="search"
                     label="search"
                     v-model="search"
                     single-line 
-                /> -->
+                />
             </div>
         </div>
         <v-data-table
@@ -80,27 +80,41 @@ import {mapGetters, mapActions} from 'vuex'
     computed:{  
         ...mapGetters('datatable', [
             "getNoData", "getItems", "getHeaders", "isLoading",
-            "getPageSize", "getListPageSizes" 
+            "getPageSize", "getListPageSizes", "getSearch", "getSearch"
         ]),
         pageSize: {
-            get(){
+            get() {
                 return this.getPageSize;
             },
-            set(value){
+            set(value) {
                 return this.pageSizeChange({pageSize: value});
             }
-        }
+        },
+        search: {
+            get() {
+                return this.getSearch;
+            },
+            set(value) {
+                return this.keyUpSearch({search: value});
+            }
+        },
     }, 
     methods: {
         ...mapActions('datatable', [
-            'pageSizeChange'
-        ])
+            'pageSizeChange', 'keyUpSearch', 'fetchData', 'setDataLink',
+            'streamSearch',
+        ]),
     },
     // ketika berjalan pertama kali
     mounted() {
-        this.$store.dispatch('datatable/setDataLink', {dataLink: this.dataLink});
-        this.$store.dispatch('datatable/fetchData');
+        this.setDataLink({dataLink: this.dataLink});
+        this.fetchData();
     },
+    watch: {
+        search: function(value) {
+            this.streamSearch();
+        },
+    }
   }
 </script>
 

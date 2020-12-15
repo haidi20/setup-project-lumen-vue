@@ -27,6 +27,15 @@ var datatableMutations = {
   },
   LOADING_FALSE: function LOADING_FALSE(state) {
     state.loading = false;
+  },
+  KEYUP_SEARCH: function KEYUP_SEARCH(state, payload) {
+    state.search = payload.search;
+  },
+  WAITING_SEARCH_TRUE: function WAITING_SEARCH_TRUE(state) {
+    state.waitingSearch = true;
+  },
+  WAITING_SEARCH_FALSE: function WAITING_SEARCH_FALSE(state) {
+    state.waitingSearch = false;
   }
 };
 var _default = datatableMutations;
