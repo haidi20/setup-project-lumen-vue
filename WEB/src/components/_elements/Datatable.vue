@@ -13,17 +13,16 @@
             <v-select
                 v-model="pageSize"
                 :items="getListPageSizes"
-                
                 class="select-page-size"
             />
             <p style="display:inherit">entires</p>
             <div class="space-search">
-                <v-text-field 
+                <!-- <v-text-field 
                     class="search"
                     label="search"
                     v-model="search"
                     single-line 
-                />
+                /> -->
             </div>
         </div>
         <v-data-table
@@ -36,7 +35,7 @@
             class="elevation-1"
         >
             <template v-slot:[`item.number`]="{ item }"> 
-                {{ numberData(item) }}
+                {{ getNoData(item) }}
             </template>
             <template v-slot:[`item.actions`]="{ item }">
             <v-icon small color="primary" class="mr-2" @click="editData(item.id)">
@@ -67,7 +66,7 @@
 
 <script>
 // import {fetchPost} from '../../api/services/PostService'
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 
   export default {
     name: 'HelloWorld',
@@ -77,6 +76,7 @@ import {mapGetters} from 'vuex'
         editData: Function,
         removeData: Function,
     },
+    // realtime seperti useEffect di reactjs
     computed:{  
         ...mapGetters('datatable', [
             "getNoData", "getItems", "getHeaders", "isLoading",
@@ -87,21 +87,19 @@ import {mapGetters} from 'vuex'
                 return this.getPageSize;
             },
             set(value){
-                this.$store.dispatch("datatable/pageSizeChange", {pageSize: value});
+                return this.pageSizeChange({pageSize: value});
             }
         }
-    },   
+    }, 
+    methods: {
+        ...mapActions('datatable', [
+            'pageSizeChange'
+        ])
+    },
+    // ketika berjalan pertama kali
     mounted() {
         this.$store.dispatch('datatable/setDataLink', {dataLink: this.dataLink});
         this.$store.dispatch('datatable/fetchData');
-    },
-    methods: {
-        numberData(value) {
-            return this.getNoData(value);
-        },
-        // pageSizeChange(value) {
-        //     this.$store.dispatch("datatable/pageSizeChange", {pageSize: value});
-        // }
     },
   }
 </script>
