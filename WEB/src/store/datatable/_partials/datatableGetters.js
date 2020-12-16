@@ -8,6 +8,12 @@ const datatableGetters = {
     getPageSize: state => {
         return state.pageSize;
     },
+    getTotalPages: state => {
+        return state.totalPages;
+    },
+    getPage: state => {
+        return state.page;
+    },
     getListPageSizes: state => {
         return state.pageSizes;
     },
@@ -16,6 +22,9 @@ const datatableGetters = {
     },
     getSearch: state => {
         return state.search;
+    },
+    getActions: state => {
+        return state.actions;
     },
     getNoData: state => item => {
         let number = state.data.map(function(x) { return x.id; }).indexOf(item.id) + 1;

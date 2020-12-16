@@ -55,32 +55,45 @@ var datatableActions = {
     var commit = _ref2.commit;
     commit('INSERT_DATA_LINK', payload);
   },
-  pageChange: function pageChange(_ref3, payload) {
-    var commit = _ref3.commit,
-        state = _ref3.state;
+  setHeaders: function setHeaders(_ref3, payload) {
+    var commit = _ref3.commit;
+    commit('INSERT_HEADERS', payload);
+  },
+  setActions: function setActions(_ref4, payload) {
+    var commit = _ref4.commit;
+    commit('INSERT_ACTIONS', payload);
+  },
+  pageChange: function pageChange(_ref5, payload) {
+    var commit = _ref5.commit,
+        state = _ref5.state,
+        dispatch = _ref5.dispatch;
 
     if (state.page != payload.page) {
       commit('INSERT_PAGE', payload);
+      dispatch('fetchData');
     }
   },
-  pageSizeChange: function pageSizeChange(_ref4, payload) {
-    var commit = _ref4.commit,
-        dispatch = _ref4.dispatch,
-        state = _ref4.state;
+  pageSizeChange: function pageSizeChange(_ref6, payload) {
+    var commit = _ref6.commit,
+        dispatch = _ref6.dispatch,
+        state = _ref6.state;
 
     if (state.pageSize != payload.pageSize) {
       commit('PAGE_SIZE_CHANGE', payload);
       dispatch('fetchData');
     }
   },
-  keyUpSearch: function keyUpSearch(_ref5, payload) {
-    var commit = _ref5.commit;
+  keyUpSearch: function keyUpSearch(_ref7, payload) {
+    var commit = _ref7.commit;
+    commit('INSERT_PAGE', {
+      page: 1
+    });
     commit('KEYUP_SEARCH', payload);
   },
-  streamSearch: function streamSearch(_ref6) {
-    var commit = _ref6.commit,
-        state = _ref6.state,
-        dispatch = _ref6.dispatch;
+  streamSearch: function streamSearch(_ref8) {
+    var commit = _ref8.commit,
+        state = _ref8.state,
+        dispatch = _ref8.dispatch;
 
     if (!state.waitingSearch) {
       setTimeout(function () {

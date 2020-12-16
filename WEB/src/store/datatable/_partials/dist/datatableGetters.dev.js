@@ -14,6 +14,12 @@ var datatableGetters = {
   getPageSize: function getPageSize(state) {
     return state.pageSize;
   },
+  getTotalPages: function getTotalPages(state) {
+    return state.totalPages;
+  },
+  getPage: function getPage(state) {
+    return state.page;
+  },
   getListPageSizes: function getListPageSizes(state) {
     return state.pageSizes;
   },
@@ -22,6 +28,9 @@ var datatableGetters = {
   },
   getSearch: function getSearch(state) {
     return state.search;
+  },
+  getActions: function getActions(state) {
+    return state.actions;
   },
   getNoData: function getNoData(state) {
     return function (item) {

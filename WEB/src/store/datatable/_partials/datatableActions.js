@@ -25,9 +25,16 @@ const datatableActions = {
     setDataLink({ commit }, payload) {
         commit('INSERT_DATA_LINK', payload);
     },
-    pageChange({ commit, state }, payload) {
+    setHeaders({ commit }, payload) {
+        commit('INSERT_HEADERS', payload);
+    },
+    setActions({ commit }, payload) {
+        commit('INSERT_ACTIONS', payload);
+    },
+    pageChange({ commit, state, dispatch }, payload) {
         if (state.page != payload.page) {
             commit('INSERT_PAGE', payload);
+            dispatch('fetchData');
         }
     },
     pageSizeChange({ commit, dispatch, state }, payload) {
@@ -37,6 +44,7 @@ const datatableActions = {
         }
     },
     keyUpSearch: function({ commit }, payload) {
+        commit('INSERT_PAGE', { page: 1 });
         commit('KEYUP_SEARCH', payload);
     },
     streamSearch: function({ commit, state, dispatch }) {
