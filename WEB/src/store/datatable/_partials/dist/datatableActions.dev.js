@@ -9,6 +9,14 @@ var _api = _interopRequireDefault(require("../../../api"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 var datatableActions = {
   fetchData: function fetchData(_ref) {
     var commit, state, params;
@@ -57,11 +65,34 @@ var datatableActions = {
   },
   setHeaders: function setHeaders(_ref3, payload) {
     var commit = _ref3.commit;
+
+    if (payload.actions !== undefined) {
+      payload.headers = [{
+        text: "No.",
+        sortable: false,
+        value: "number"
+      }, {
+        text: "Actions",
+        value: "actions",
+        sortable: false,
+        align: "start"
+      }].concat(_toConsumableArray(payload.headers));
+    } else {
+      payload.headers = [{
+        text: "No.",
+        sortable: false,
+        value: "number"
+      }].concat(_toConsumableArray(payload.headers));
+    }
+
     commit('INSERT_HEADERS', payload);
   },
   setActions: function setActions(_ref4, payload) {
     var commit = _ref4.commit;
-    commit('INSERT_ACTIONS', payload);
+
+    if (payload.actions !== undefined && payload.actions.length > 0) {
+      commit('INSERT_ACTIONS', payload);
+    }
   },
   pageChange: function pageChange(_ref5, payload) {
     var commit = _ref5.commit,
@@ -92,12 +123,11 @@ var datatableActions = {
   },
   setConfig: function setConfig(_ref8, payload) {
     var commit = _ref8.commit,
-        state = _ref8.state,
         dispatch = _ref8.dispatch;
     var config = payload.config;
-    commit('INSERT_DATA_LINK', config);
+    dispatch('setHeaders', config);
     commit('INSERT_ACTIONS', config);
-    commit('INSERT_HEADERS', config);
+    commit('INSERT_DATA_LINK', config);
     dispatch('fetchData');
   },
   streamSearch: function streamSearch(_ref9) {

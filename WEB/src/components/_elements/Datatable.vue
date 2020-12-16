@@ -113,6 +113,7 @@ export default {
   },
   // ketika berjalan pertama kali
   mounted() {
+    // fetch data sudah di dalam action/datatable/setConfig
     // this.fetchData();
   },
   watch: {

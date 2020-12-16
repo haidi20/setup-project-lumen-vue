@@ -1,7 +1,7 @@
 <template>
-  <v-container v-container fluid>
+  <v-container fluid>
     <v-col sm="12" xs="12" md="12">
-      <h2>{{ config.titlePage }}</h2>
+      <h2>Dashboard</h2>
       <Datatable />
     </v-col>
   </v-container>
@@ -19,9 +19,10 @@ export default {
       config: {
         dataLink: "/posts",
         titlePage: "Dashboard",
+        // actions optional
         actions: [
           { icon: "mdi-pencil", color: "primary", method: this.editData },
-          { icon: "mdi-delete", color: "red", method: this.removeData }
+          { icon: "mdi-delete", color: "red", method: this.removeData },
         ],
         headers: [
           { text: "Title", sortable: false, value: "title" },

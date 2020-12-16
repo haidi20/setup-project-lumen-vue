@@ -10,21 +10,7 @@ const datatableMutations = {
         state.totalPages = payload.last_page;
     },
     INSERT_HEADERS: (state, payload) => {
-        if (payload.actions !== undefined) {
-            state.headers = [
-                { text: "No.", sortable: false, value: "number" },
-                { text: "Actions", value: "actions", sortable: false, align: "start" },
-            ]
-        } else {
-            state.headers = [
-                { text: "No.", sortable: false, value: "number" },
-            ];
-        }
-
-        state.headers = [
-            ...state.headers,
-            ...payload.headers,
-        ];
+        state.headers = payload.headers;
     },
     INSERT_ACTIONS: (state, payload) => {
         state.actions = payload.actions;

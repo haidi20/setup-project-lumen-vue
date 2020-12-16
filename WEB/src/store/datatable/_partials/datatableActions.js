@@ -26,10 +26,25 @@ const datatableActions = {
         commit('INSERT_DATA_LINK', payload);
     },
     setHeaders({ commit }, payload) {
+        if (payload.actions !== undefined) {
+            payload.headers = [
+                { text: "No.", sortable: false, value: "number" },
+                { text: "Actions", value: "actions", sortable: false, align: "start" },
+                ...payload.headers,
+            ];
+        } else {
+            payload.headers = [
+                { text: "No.", sortable: false, value: "number" },
+                ...payload.headers,
+            ];
+        }
+
         commit('INSERT_HEADERS', payload);
     },
     setActions({ commit }, payload) {
-        commit('INSERT_ACTIONS', payload);
+        if (payload.actions !== undefined && payload.actions.length > 0) {
+            commit('INSERT_ACTIONS', payload);
+        }
     },
     pageChange({ commit, state, dispatch }, payload) {
         if (state.page != payload.page) {
@@ -47,12 +62,12 @@ const datatableActions = {
         commit('INSERT_PAGE', { page: 1 });
         commit('KEYUP_SEARCH', payload);
     },
-    setConfig: function({ commit, state, dispatch }, payload) {
+    setConfig: function({ commit, dispatch }, payload) {
         const config = payload.config;
 
-        commit('INSERT_DATA_LINK', config);
+        dispatch('setHeaders', config);
         commit('INSERT_ACTIONS', config);
-        commit('INSERT_HEADERS', config);
+        commit('INSERT_DATA_LINK', config);
 
         dispatch('fetchData');
     },

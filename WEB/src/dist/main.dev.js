@@ -12,12 +12,14 @@ var _store = _interopRequireDefault(require("./store"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-_vue["default"].use(_vueAxiosCors["default"]);
+// import Vuetify from 'vuetify/lib/framework'
+_vue["default"].use(_vueAxiosCors["default"]); // Vue.use(Vuetify);
+
 
 _vue["default"].config.productionTip = false;
 new _vue["default"]({
-  vuetify: _vuetify["default"],
   store: _store["default"],
+  vuetify: _vuetify["default"],
   render: function render(h) {
     return h(_layouts["default"]);
   }
