@@ -47,6 +47,15 @@ const datatableActions = {
         commit('INSERT_PAGE', { page: 1 });
         commit('KEYUP_SEARCH', payload);
     },
+    setConfig: function({ commit, state, dispatch }, payload) {
+        const config = payload.config;
+
+        commit('INSERT_DATA_LINK', config);
+        commit('INSERT_ACTIONS', config);
+        commit('INSERT_HEADERS', config);
+
+        dispatch('fetchData');
+    },
     streamSearch: function({ commit, state, dispatch }) {
         if (!state.waitingSearch) {
             setTimeout(() => {

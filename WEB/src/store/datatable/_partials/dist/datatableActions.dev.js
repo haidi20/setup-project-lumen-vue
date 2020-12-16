@@ -90,10 +90,20 @@ var datatableActions = {
     });
     commit('KEYUP_SEARCH', payload);
   },
-  streamSearch: function streamSearch(_ref8) {
+  setConfig: function setConfig(_ref8, payload) {
     var commit = _ref8.commit,
         state = _ref8.state,
         dispatch = _ref8.dispatch;
+    var config = payload.config;
+    commit('INSERT_DATA_LINK', config);
+    commit('INSERT_ACTIONS', config);
+    commit('INSERT_HEADERS', config);
+    dispatch('fetchData');
+  },
+  streamSearch: function streamSearch(_ref9) {
+    var commit = _ref9.commit,
+        state = _ref9.state,
+        dispatch = _ref9.dispatch;
 
     if (!state.waitingSearch) {
       setTimeout(function () {

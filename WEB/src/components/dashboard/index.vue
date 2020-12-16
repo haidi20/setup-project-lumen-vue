@@ -1,47 +1,45 @@
 <template>
-    <div>
-        <Datatable
-            titlePage="Dashboard"
-            v-bind:headers="headers"
-            v-bind:actions="actions"
-            v-bind:dataLink="dataLink" 
-            v-bind:editData="editData"
-            v-bind:removeData="removeData"
-         />
-    </div>
+  <v-container v-container fluid>
+    <v-col sm="12" xs="12" md="12">
+      <h2>{{ config.titlePage }}</h2>
+      <Datatable />
+    </v-col>
+  </v-container>
 </template>
 
 <script>
-import Datatable from '../_elements/Datatable'
-    export default {
-      components: {
-          Datatable
-      },
-      data() {
-          return {
-              dataLink: "/posts",
-              titlePage: "Dashboard",
-              headers: [
-                    { text: "Title", sortable: false, value: "title" },
-                    { text: "Date", value: "date", sortable: false },
-                    { text: "Author", value: "author", sortable: false },
-              ],
-              actions: [
-                  {icon: 'mdi-pencil', method: this.editData}
-              ]
-          }
-      },
-      methods: {
-          editData(id) {
-              alert(id);
-          },
-          removeData(id) {
-              console.log('delete data ' + id);
-          },
+import { mapGetters, mapActions } from "vuex";
+import Datatable from "../_elements/Datatable";
+export default {
+  components: {
+    Datatable,
+  },
+  data() {
+    return {
+      config: {
+        dataLink: "/posts",
+        titlePage: "Dashboard",
+        actions: [
+          { icon: "mdi-pencil", method: this.editData }
+        ],
+        headers: [
+          { text: "Title", sortable: false, value: "title" },
+          { text: "Date", value: "date", sortable: false },
+          { text: "Author", value: "author", sortable: false },
+        ],
       }
-    }
+    };
+  },
+  mounted() {
+    this.setConfig({ config: this.config });
+  },
+  methods: {
+    ...mapActions("datatable", ["setConfig"]),
+    editData(value) {
+      console.log(value);
+    },
+  },
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
