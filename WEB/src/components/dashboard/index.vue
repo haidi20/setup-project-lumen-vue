@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import Datatable from "../_elements/Datatable";
 export default {
   components: {
@@ -20,7 +20,8 @@ export default {
         dataLink: "/posts",
         titlePage: "Dashboard",
         actions: [
-          { icon: "mdi-pencil", method: this.editData }
+          { icon: "mdi-pencil", color: "primary", method: this.editData },
+          { icon: "mdi-delete", color: "red", method: this.removeData }
         ],
         headers: [
           { text: "Title", sortable: false, value: "title" },
@@ -38,6 +39,9 @@ export default {
     editData(value) {
       console.log(value);
     },
+    removeData(value) {
+      console.log(value.id);
+    }
   },
 };
 </script>

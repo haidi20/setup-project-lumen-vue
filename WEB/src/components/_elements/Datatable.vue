@@ -31,17 +31,14 @@
       </template>
       <template v-if="getActions.length > 0" v-slot:[`item.actions`]="item">
         <v-icon 
-          small 
+          medium 
           class="mr-2"
-          color="primary" 
+          :color="value.color" 
           v-bind:key="index" 
-          @click="value.method(item)" 
+          @click="value.method(item.item)" 
           v-for="(value, index) in getActions" >
               {{value.icon}}
-        </v-icon> 
-        <!-- <v-icon small color="red" @click="removeData(item.id)">
-                  mdi-delete
-              </v-icon> -->
+        </v-icon>
       </template>
       <template slot="no-data">
         Data Empty
