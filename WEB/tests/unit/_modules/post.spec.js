@@ -1,57 +1,34 @@
-// Libraries
-import Vuex from "vuex";
-import Vuetify from "vuetify";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import Vuetify from 'vuetify';
 
-// components
-import Post from "@/components/post";
-import Datatable from '@/components/_elements/Datatable'
+import { mount, createLocalVue } from '@vue/test-utils';
 
-// Utilities
-import { createLocalVue, mount, shallow, shallowMount } from "@vue/test-utils";
+//components
+import Post from '@/components/post';
 
-// config.showDeprecationWarnings = false;
+import store from '@/store';
 
-describe("Post", () => {
-    let wrapper, wrapperMount, vuetify, mutations, state, localVue;
-    // for vuex
-    let storeOptions, store;
+Vue.use(Vuex);
+Vue.use(Vuetify);
+
+describe('Post', () => {
+    const localVue = createLocalVue()
+    let vuetify, wrapper;
 
     beforeEach(() => {
-        localVue = createLocalVue();
-        localVue.use(Vuex);
-        localVue.use(Vuetify);
-
-        storeOptions = {
-            modules: {
-                datatable: {
-                    namespaced: true,
-                    actions: {
-                        setConfig: jest.fn(),
-                    },
-                },
-            },
-        };
-
-        store = new Vuex.Store(storeOptions);
-        // wrapperMount = mount(Post, { store, localVue });
-        wrapper = shallowMount(Post, { store, localVue });
-
+        vuetify = new Vuetify();
+        wrapper = mount(Post, {
+            localVue,
+            vuetify,
+            store,
+        });
     });
 
-    it("renders a vue instance", () => {
-        expect(shallowMount(Post, { store, localVue }).isVueInstance()).toBe(true);
-    });
 
-    it("check exists word Posts", () => {
-        const title = wrapper.find("h2");
+    it('check word title', async() => {
+        const title = wrapper.find('h2');
 
-        expect(title.text()).toBe("Posts");
-    });
-
-    it("check datatable", () => {
-        const datatable = wrapper.contains("datatable-stub");
-
-        // expect(wrapper.html()).toMatchSnapshot();
-        expect(datatable).toBe(true);
+        expect(title.text()).toBe('Posts');
     });
 });

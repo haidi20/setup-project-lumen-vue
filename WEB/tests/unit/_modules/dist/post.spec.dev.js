@@ -1,59 +1,49 @@
 "use strict";
 
+var _vue = _interopRequireDefault(require("vue"));
+
 var _vuex = _interopRequireDefault(require("vuex"));
 
 var _vuetify = _interopRequireDefault(require("vuetify"));
 
+var _testUtils = require("@vue/test-utils");
+
 var _post = _interopRequireDefault(require("@/components/post"));
 
-var _Datatable = _interopRequireDefault(require("@/components/_elements/Datatable"));
-
-var _testUtils = require("@vue/test-utils");
+var _store = _interopRequireDefault(require("@/store"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-// Libraries
-// components
-// Utilities
-// config.showDeprecationWarnings = false;
-describe("Post", function () {
-  var wrapper, wrapperMount, vuetify, mutations, state, localVue; // for vuex
+//components
+_vue["default"].use(_vuex["default"]);
 
-  var storeOptions, store;
+_vue["default"].use(_vuetify["default"]);
+
+describe('Post', function () {
+  var localVue = (0, _testUtils.createLocalVue)();
+  var vuetify, wrapper;
   beforeEach(function () {
-    localVue = (0, _testUtils.createLocalVue)();
-    localVue.use(_vuex["default"]);
-    localVue.use(_vuetify["default"]);
-    storeOptions = {
-      modules: {
-        datatable: {
-          namespaced: true,
-          actions: {
-            setConfig: jest.fn()
-          }
-        }
-      }
-    };
-    store = new _vuex["default"].Store(storeOptions); // wrapperMount = mount(Post, { store, localVue });
-
-    wrapper = (0, _testUtils.shallowMount)(_post["default"], {
-      store: store,
-      localVue: localVue
+    vuetify = new _vuetify["default"]();
+    wrapper = (0, _testUtils.mount)(_post["default"], {
+      localVue: localVue,
+      vuetify: vuetify,
+      store: _store["default"]
     });
   });
-  it("renders a vue instance", function () {
-    expect((0, _testUtils.shallowMount)(_post["default"], {
-      store: store,
-      localVue: localVue
-    }).isVueInstance()).toBe(true);
-  });
-  it("check exists word Posts", function () {
-    var title = wrapper.find("h2");
-    expect(title.text()).toBe("Posts");
-  });
-  it("check datatable", function () {
-    var datatable = wrapper.contains("datatable-stub"); // expect(wrapper.html()).toMatchSnapshot();
+  it('check word title', function _callee() {
+    var title;
+    return regeneratorRuntime.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            title = wrapper.find('h2');
+            expect(title.text()).toBe('Posts');
 
-    expect(datatable).toBe(true);
+          case 2:
+          case "end":
+            return _context.stop();
+        }
+      }
+    });
   });
 });

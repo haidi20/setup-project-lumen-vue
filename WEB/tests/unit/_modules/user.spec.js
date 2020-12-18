@@ -1,51 +1,37 @@
-// Libraries
-import Vuex from 'vuex'
-import Vuetify from 'vuetify'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import Vuetify from 'vuetify';
 
-// components
-import User from '@/components/user'
+import { mount, createLocalVue } from '@vue/test-utils';
 
-// Utilities
-import { createLocalVue, mount, shallow, shallowMount } from '@vue/test-utils'
+//components
+import User from '@/components/user';
+
+import store from '@/store';
+
+Vue.use(Vuex);
+Vue.use(Vuetify);
 
 describe('User', () => {
-    let wrapper, vuetify, mutations, state, localVue;
-    // for vuex
-    let storeOptions, store;
+    const localVue = createLocalVue()
+    let vuetify, wrapper;
 
     beforeEach(() => {
-        localVue = createLocalVue();
-        localVue.use(Vuex);
-        localVue.use(Vuetify);
+        vuetify = new Vuetify();
 
-        storeOptions = {
-            modules: {
-                datatable: {
+        wrapper = mount(User, {
+            localVue,
+            vuetify,
+            store,
+        });
+    })
 
-                }
-            }
-        };
-
-        store = new Vuex.Store(storeOptions);
-        wrapper = shallowMount(User, { store, localVue });
+    it('snapshot page user', () => {
+        expect(wrapper.html()).toMatchSnapshot();
     });
 
-    it('renders a vue instance', () => {
-        expect(shallowMount(User, { store, localVue }).isVueInstance()).toBe(true);
-    });
-
-    it('check exists word User', () => {
+    it('check word title', async() => {
         const title = wrapper.find('h2');
-
         expect(title.text()).toBe('User');
-    });
-
-    it('check name user with setTimeout', (done) => {
-        const name = wrapper.find('p');
-
-        setTimeout(function() {
-            expect(name.text()).toBe("haidi");
-            done();
-        }, 3000);
     });
 });
