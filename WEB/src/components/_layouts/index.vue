@@ -30,19 +30,21 @@
     </v-app-bar>
 
     <v-main>
-      <Dashboard/>
+      <Post/>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import Post from '../post'
 import Dashboard from '../dashboard'
 
 export default {
   name: 'App',
 
   components: {
-    Dashboard,
+    Post,
+    // Dashboard,
   },
 
   data: () => ({

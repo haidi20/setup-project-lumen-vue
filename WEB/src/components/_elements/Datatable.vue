@@ -3,6 +3,7 @@
     <div class="space-top-datatable">
       <p style="display:inline-block">show</p>
       <v-select
+        id="pageSize"
         v-model="pageSize"
         :items="getListPageSizes"
         class="select-page-size"
