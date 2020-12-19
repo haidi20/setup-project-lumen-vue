@@ -12,6 +12,7 @@
         "@vue/test-utils": "^1.1.2",
         "axios": "^0.21.0",
         "core-js": "^3.6.5",
+        "selenium-webdriver": "^4.0.0-alpha.8",
         "vue": "^2.6.11",
         "vue-axios-cors": "^1.0.1",
         "vue-router": "^3.4.9",
@@ -48,15 +49,17 @@
         "rules": {
             "no-unused-vars": "off"
         },
-        "overrides": [{
-            "files": [
-                "**/__tests__/*.{j,t}s?(x)",
-                "**/tests/unit/**/*.spec.{j,t}s?(x)"
-            ],
-            "env": {
-                "jest": true
+        "overrides": [
+            {
+                "files": [
+                    "**/__tests__/*.{j,t}s?(x)",
+                    "**/tests/unit/**/*.spec.{j,t}s?(x)"
+                ],
+                "env": {
+                    "jest": true
+                }
             }
-        }]
+        ]
     },
     "browserslist": [
         "> 1%",

@@ -21,10 +21,15 @@ _vue["default"].use(_vuetify["default"]);
 
 describe('Post', function () {
   var localVue = (0, _testUtils.createLocalVue)();
-  var vuetify, wrapper;
+  var vuetify, wrapperMount, wrapperShallowMount;
   beforeEach(function () {
     vuetify = new _vuetify["default"]();
-    wrapper = (0, _testUtils.mount)(_post["default"], {
+    wrapperMount = (0, _testUtils.mount)(_post["default"], {
+      localVue: localVue,
+      vuetify: vuetify,
+      store: _store["default"]
+    });
+    wrapperShallowMount = (0, _testUtils.shallowMount)(_post["default"], {
       localVue: localVue,
       vuetify: vuetify,
       store: _store["default"]
@@ -36,12 +41,60 @@ describe('Post', function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            title = wrapper.find('h2');
+            title = wrapperMount.find('h2');
             expect(title.text()).toBe('Posts');
 
           case 2:
           case "end":
             return _context.stop();
+        }
+      }
+    });
+  });
+  it('check data count 5', function _callee2() {
+    var data;
+    return regeneratorRuntime.async(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return regeneratorRuntime.awrap(wrapperMount.findAll('.v-data-table__wrapper > table > tr'));
+
+          case 2:
+            data = _context2.sent;
+            expect(data.length).toBe(5);
+
+          case 4:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    });
+  });
+  it('check default value PageSizeChange', function () {
+    var select = wrapperMount.find('.v-select').props('value');
+    expect(select).toBe(5);
+  });
+  it('event click pageSizeChange value 10', function _callee3() {
+    var value;
+    return regeneratorRuntime.async(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return regeneratorRuntime.awrap(wrapperMount.find('.v-select__slot').trigger('click'));
+
+          case 2:
+            _context3.next = 4;
+            return regeneratorRuntime.awrap(wrapperMount.findAll('.v-list-item').at(1).trigger('click'));
+
+          case 4:
+            value = wrapperMount.find('.v-select__selection.v-select__selection--comma');
+            expect(value.text()).toBe("10");
+
+          case 6:
+          case "end":
+            return _context3.stop();
         }
       }
     });

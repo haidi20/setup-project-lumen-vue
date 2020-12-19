@@ -2,12 +2,12 @@
   <div>
     <div class="space-top-datatable">
       <p style="display:inline-block">show</p>
-      <v-select
+       <v-select
         id="pageSize"
         v-model="pageSize"
         :items="getListPageSizes"
         class="select-page-size"
-      />
+      /> 
       <p style="display:inherit">entires</p>
       <div class="space-search">
         <v-text-field
