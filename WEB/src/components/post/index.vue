@@ -70,10 +70,8 @@ export default {
       const data = {...this.post};
 
       try {
-        await http.post(`/api/posts/${this.post.id}`, {...this.post})
+        await http.put(`/api/posts/${this.post.id}`, {...this.post})
           .then(response => {
-            console.log(response);
-
             this.alert = true;
             this.dialog = false;
             this.fetchData();
@@ -83,8 +81,18 @@ export default {
         return (null);
       }
     },
-    removeData(value) {
-      console.log(value.id);
+    async removeData(value) {
+      try {
+        await http.delete(`/api/posts/${value.id}`)
+          .then(response => {
+            console.log(response);
+            this.alert = true;
+            this.fetchData();
+          });
+      } catch (error) {
+        console.log('error update data = ' + error);
+        return (null);
+      }
     },
     closeDialog() {
       this.dialog = false;

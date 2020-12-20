@@ -24,5 +24,5 @@ $router->get('/api/data', function () use ($router) {
 });
 
 $router->get('/api/posts',  ['uses' => 'PostController@index']);
-$router->post('/api/posts/{id}',  ['uses' => 'PostController@update']);
-$router->delete('/api/posts',  ['uses' => 'PostController@delete']);
+$router->put('/api/posts/{id}',  ['uses' => 'PostController@update']);
+$router->delete('/api/posts/{id}',  ['uses' => 'PostController@delete']);
