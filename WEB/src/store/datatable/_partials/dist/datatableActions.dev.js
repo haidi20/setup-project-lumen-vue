@@ -75,8 +75,11 @@ var datatableActions = {
             _context2.prev = 1;
             _context2.next = 4;
             return regeneratorRuntime.awrap(_api["default"].put("/api/posts/".concat(payload.post.id), _objectSpread({}, payload.post)).then(function (response) {
-              commit('SET_ALERT', {
+              // commit('SET_ALERT', { alert: true });
+              dispatch('alert/setAlert', {
                 alert: true
+              }, {
+                root: true
               });
               dispatch('fetchData');
             }));
@@ -182,10 +185,6 @@ var datatableActions = {
     }
 
     commit('WAITING_SEARCH_TRUE');
-  },
-  setAlert: function setAlert(_ref11, payload) {
-    var commit = _ref11.commit;
-    commit('SET_ALERT', payload);
   }
 };
 var _default = datatableActions;

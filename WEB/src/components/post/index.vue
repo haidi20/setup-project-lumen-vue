@@ -60,14 +60,12 @@ export default {
   methods: {
     ...mapActions("datatable", [
       "setConfig", "fetchData", "methodAction", "changeData",
-      "setAlert",
     ]),
     editData(value) {
       this.dialog = true;      
       this.post = {...value};
     },
     updateData() {
-      console.log(this.post);
       this.changeData({post: this.post});
       this.dialog = false;
     },

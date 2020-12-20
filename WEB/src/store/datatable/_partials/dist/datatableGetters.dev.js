@@ -32,9 +32,6 @@ var datatableGetters = {
   getActions: function getActions(state) {
     return state.actions;
   },
-  getAlert: function getAlert(state) {
-    return state.alert;
-  },
   getNoData: function getNoData(state) {
     return function (item) {
       var number = state.data.map(function (x) {

@@ -26,7 +26,8 @@ const datatableActions = {
         try {
             await http.put(`/api/posts/${payload.post.id}`, {...payload.post })
                 .then(response => {
-                    commit('SET_ALERT', { alert: true });
+                    // commit('SET_ALERT', { alert: true });
+                    dispatch('alert/setAlert', { alert: true }, { root: true });
                     dispatch('fetchData');
                 });
         } catch (error) {
@@ -93,9 +94,6 @@ const datatableActions = {
 
         commit('WAITING_SEARCH_TRUE');
     },
-    setAlert: function({ commit }, payload) {
-        commit('SET_ALERT', payload);
-    }
 }
 
 export default datatableActions;

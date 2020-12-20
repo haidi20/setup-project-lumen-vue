@@ -42,9 +42,6 @@ var datatableMutations = {
   },
   WAITING_SEARCH_FALSE: function WAITING_SEARCH_FALSE(state) {
     state.waitingSearch = false;
-  },
-  SET_ALERT: function SET_ALERT(state, payload) {
-    state.alert = payload.alert;
   }
 };
 var _default = datatableMutations;

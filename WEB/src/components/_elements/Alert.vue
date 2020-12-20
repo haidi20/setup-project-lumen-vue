@@ -15,7 +15,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   
   computed: {
-    ...mapGetters("datatable", ["getAlert"]),
+    ...mapGetters("alert", ["getAlert"]),
     alert: {
       get() {
         return this.getAlert;
@@ -26,13 +26,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions('datatable', ['setAlert']),
+    ...mapActions('alert', ['setAlert']),
   },
   watch: {
     alert: function() {
       setTimeout(() => {
         this.setAlert({alert: false});
-      }, 2000)
+      }, 2000);
     }
   }
 }
