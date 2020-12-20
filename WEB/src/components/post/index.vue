@@ -70,16 +70,16 @@ export default {
       this.dialog = false;
     },
     async removeData(value) {
-      try {
-        await http.delete(`/api/posts/${value.id}`)
-          .then(response => {
-            this.alert = true;
-            this.fetchData();
-          });
-      } catch (error) {
-        console.log('error update data = ' + error);
-        return (null);
-      }
+      // try {
+      //   await http.delete(`/api/posts/${value.id}`)
+      //     .then(response => {
+      //       this.alert = true;
+      //       this.fetchData();
+      //     });
+      // } catch (error) {
+      //   console.log('error update data = ' + error);
+      //   return (null);
+      // }
     },
     closeDialog() {
       this.dialog = false;
