@@ -22,11 +22,10 @@ const datatableActions = {
             return (null);
         }
     },
-    async changeData({ commit, dispatch }, payload) {
+    async methodAction({ commit, dispatch }, payload) {
         try {
-            await http.put(`/api/posts/${payload.post.id}`, {...payload.post })
+            await http({...payload })
                 .then(response => {
-                    // commit('SET_ALERT', { alert: true });
                     dispatch('alert/setAlert', { alert: true }, { root: true });
                     dispatch('fetchData');
                 });

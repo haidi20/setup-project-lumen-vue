@@ -59,27 +59,30 @@ export default {
   },
   methods: {
     ...mapActions("datatable", [
-      "setConfig", "fetchData", "methodAction", "changeData",
+      "setConfig", "fetchData", "methodAction", "methodAction",
     ]),
     editData(value) {
       this.dialog = true;      
       this.post = {...value};
     },
     updateData() {
-      this.changeData({post: this.post});
+      const payload = {
+        url: `/api/posts/${this.post.id}`,
+        method: "put",
+        data: this.post,
+      }
+
+      this.methodAction(payload);
       this.dialog = false;
     },
     async removeData(value) {
-      // try {
-      //   await http.delete(`/api/posts/${value.id}`)
-      //     .then(response => {
-      //       this.alert = true;
-      //       this.fetchData();
-      //     });
-      // } catch (error) {
-      //   console.log('error update data = ' + error);
-      //   return (null);
-      // }
+      const payload = {
+        url: `/api/posts/${value.id}`,
+        method: "delete",
+        data: this.post,
+      }
+
+      this.methodAction(payload);
     },
     closeDialog() {
       this.dialog = false;

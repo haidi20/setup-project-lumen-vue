@@ -65,17 +65,16 @@ var datatableActions = {
       }
     }, null, null, [[4, 9]]);
   },
-  changeData: function changeData(_ref2, payload) {
+  methodAction: function methodAction(_ref2, payload) {
     var commit, dispatch;
-    return regeneratorRuntime.async(function changeData$(_context2) {
+    return regeneratorRuntime.async(function methodAction$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             commit = _ref2.commit, dispatch = _ref2.dispatch;
             _context2.prev = 1;
             _context2.next = 4;
-            return regeneratorRuntime.awrap(_api["default"].put("/api/posts/".concat(payload.post.id), _objectSpread({}, payload.post)).then(function (response) {
-              // commit('SET_ALERT', { alert: true });
+            return regeneratorRuntime.awrap((0, _api["default"])(_objectSpread({}, payload)).then(function (response) {
               dispatch('alert/setAlert', {
                 alert: true
               }, {
