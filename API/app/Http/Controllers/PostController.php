@@ -26,13 +26,14 @@ class PostController extends Controller
         try {
             $post = Post::find($id);
             $post->title = request('title');
-            $post->date = request('date');
+            // $post->date = request('date');
             $post->author = request('author');
             $post->save();
 
-            return $this->responseWithSuccess("Data Berhasil Dikirim");
+            // return "Data Berhasil Dikirim";
+            return $post;
         } catch (\Throwable $th) {
-            return $this->responseWithError($th);
+            return $th;
         }
     }
 

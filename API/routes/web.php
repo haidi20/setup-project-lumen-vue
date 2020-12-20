@@ -1,4 +1,5 @@
 <?php
+
 use \Illuminate\Http\Request;
 
 /*
@@ -17,9 +18,11 @@ $router->get('/', function () use ($router) {
 });
 $router->post('/login', 'AuthController@login');
 
-$router->get('/api/data', function() use ($router) {
+$router->get('/api/data', function () use ($router) {
     // return 'keren';
-    return base64_encode(str_random(32)).PHP_EOL;
+    return base64_encode(str_random(32)) . PHP_EOL;
 });
 
 $router->get('/api/posts',  ['uses' => 'PostController@index']);
+$router->post('/api/posts/{id}',  ['uses' => 'PostController@update']);
+$router->delete('/api/posts',  ['uses' => 'PostController@delete']);
