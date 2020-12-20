@@ -22,6 +22,18 @@ const datatableActions = {
             return (null);
         }
     },
+    async changeData({ commit, dispatch }, payload) {
+        try {
+            await http.put(`/api/posts/${payload.post.id}`, {...payload.post })
+                .then(response => {
+                    commit('SET_ALERT', { alert: true });
+                    dispatch('fetchData');
+                });
+        } catch (error) {
+            console.log('error update data = ' + error);
+            return (null);
+        }
+    },
     setDataLink({ commit }, payload) {
         commit('INSERT_DATA_LINK', payload);
     },
@@ -76,10 +88,13 @@ const datatableActions = {
             setTimeout(() => {
                 commit('WAITING_SEARCH_FALSE');
                 dispatch('fetchData');
-            }, 2000); // 2 sec delay
+            }, 1600);
         }
 
         commit('WAITING_SEARCH_TRUE');
+    },
+    setAlert: function({ commit }, payload) {
+        commit('SET_ALERT', payload);
     }
 }
 

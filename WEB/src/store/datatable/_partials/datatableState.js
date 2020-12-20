@@ -5,6 +5,7 @@ const datatableState = {
     headers: [],
     actions: [],
     pageSize: 5,
+    alert: false,
     dataLink: '',
     totalPages: 0,
     loading: true,

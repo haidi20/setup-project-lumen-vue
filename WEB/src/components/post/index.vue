@@ -2,12 +2,7 @@
 <v-app data-app> 
   <v-container fluid>
     <v-col sm="12" xs="12" md="12">
-      <v-alert 
-        transition="fade-transition"
-        v-model="alert"
-        type="success">
-          Update Data Success.
-      </v-alert>
+      <Alert />
       <h2>Posts</h2>
       <Datatable />
       <Form 
@@ -26,15 +21,17 @@ import { mapActions } from "vuex";
 // supports
 import http from '@/api/';
 // components
+import Alert from "@/components/_elements/Alert";
 import Form from "./_partials/PostForm";
-import Datatable from "../_elements/Datatable";
+import Datatable from "@/components/_elements/Datatable";
+
 export default {
   components: {
-    Datatable, Form
+    Datatable, Form, Alert
   },
   data() {
     return {
-      alert: false,
+      // ALERT DAN DIALOG PINDAH KE DATATABLE
       dialog: false,
       post: {
         id: '',
@@ -61,31 +58,23 @@ export default {
     this.setConfig({ config: this.config });
   },
   methods: {
-    ...mapActions("datatable", ["setConfig", "fetchData"]),
+    ...mapActions("datatable", [
+      "setConfig", "fetchData", "methodAction", "changeData",
+      "setAlert",
+    ]),
     editData(value) {
       this.dialog = true;      
       this.post = {...value};
     },
-    async updateData() {
-      const data = {...this.post};
-
-      try {
-        await http.put(`/api/posts/${this.post.id}`, {...this.post})
-          .then(response => {
-            this.alert = true;
-            this.dialog = false;
-            this.fetchData();
-          });
-      } catch (error) {
-        console.log('error update data = ' + error);
-        return (null);
-      }
+    updateData() {
+      console.log(this.post);
+      this.changeData({post: this.post});
+      this.dialog = false;
     },
     async removeData(value) {
       try {
         await http.delete(`/api/posts/${value.id}`)
           .then(response => {
-            console.log(response);
             this.alert = true;
             this.fetchData();
           });
@@ -98,13 +87,6 @@ export default {
       this.dialog = false;
     }
   },
-  watch: {
-    alert: function() {
-      setTimeout(() => {
-        this.alert = false;
-      }, 2000)
-    }
-  }
 };
 </script>
 

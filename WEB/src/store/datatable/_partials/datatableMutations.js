@@ -37,6 +37,9 @@ const datatableMutations = {
     WAITING_SEARCH_FALSE: (state) => {
         state.waitingSearch = false;
     },
+    SET_ALERT: (state, payload) => {
+        state.alert = payload.alert;
+    }
 }
 
 export default datatableMutations;

@@ -26,6 +26,9 @@ const datatableGetters = {
     getActions: state => {
         return state.actions;
     },
+    getAlert: state => {
+        return state.alert;
+    },
     getNoData: state => item => {
         let number = state.data.map(function(x) { return x.id; }).indexOf(item.id) + 1;
 
