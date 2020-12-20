@@ -65,6 +65,16 @@ var datatableActions = {
       }
     }, null, null, [[4, 9]]);
   },
+
+  /*
+  cara penggunaan methodAction :
+      payload = {
+          method: string | 'post',
+          url: string | '/api/posts/2',
+          messageAlert: string | 'Update Data Success',
+          data: object | {title: 'judul', content: 'isinya'}
+      }
+  */
   methodAction: function methodAction(_ref2, payload) {
     var commit, dispatch;
     return regeneratorRuntime.async(function methodAction$(_context2) {
@@ -76,7 +86,8 @@ var datatableActions = {
             _context2.next = 4;
             return regeneratorRuntime.awrap((0, _api["default"])(_objectSpread({}, payload)).then(function (response) {
               dispatch('alert/setAlert', {
-                alert: true
+                alert: true,
+                message: payload.messageAlert
               }, {
                 root: true
               });

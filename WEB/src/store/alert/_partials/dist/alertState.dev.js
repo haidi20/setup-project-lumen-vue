@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 var alertState = {
+  message: '',
   alert: false
 };
 var _default = alertState;

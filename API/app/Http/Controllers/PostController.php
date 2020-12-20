@@ -13,6 +13,7 @@ class PostController extends Controller
 
         try {
             $posts = Post::search()
+                ->orderBy('date', 'desc')
                 ->paginate($perPage);
 
             return $this->responseWithSuccess($posts);

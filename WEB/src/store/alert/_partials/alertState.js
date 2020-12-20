@@ -1,4 +1,5 @@
 const alertState = {
+    message: '',
     alert: false,
 }
 

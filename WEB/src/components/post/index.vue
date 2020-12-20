@@ -18,8 +18,6 @@
 
 <script>
 import { mapActions } from "vuex";
-// supports
-import http from '@/api/';
 // components
 import Alert from "@/components/_elements/Alert";
 import Form from "./_partials/PostForm";
@@ -67,19 +65,21 @@ export default {
     },
     updateData() {
       const payload = {
-        url: `/api/posts/${this.post.id}`,
         method: "put",
         data: this.post,
+        messageAlert: "Update Data Success.",
+        url: `/api/posts/${this.post.id}`,
       }
 
       this.methodAction(payload);
       this.dialog = false;
     },
-    async removeData(value) {
+    removeData(value) {
       const payload = {
-        url: `/api/posts/${value.id}`,
-        method: "delete",
         data: this.post,
+        method: "delete",
+        url: `/api/posts/${value.id}`,
+        messageAlert: "Delete Data Success.",
       }
 
       this.methodAction(payload);

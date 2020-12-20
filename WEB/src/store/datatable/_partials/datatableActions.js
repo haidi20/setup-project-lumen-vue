@@ -22,11 +22,20 @@ const datatableActions = {
             return (null);
         }
     },
+    /*
+    cara penggunaan methodAction :
+        payload = {
+            method: string | 'post',
+            url: string | '/api/posts/2',
+            messageAlert: string | 'Update Data Success',
+            data: object | {title: 'judul', content: 'isinya'}
+        }
+    */
     async methodAction({ commit, dispatch }, payload) {
         try {
             await http({...payload })
                 .then(response => {
-                    dispatch('alert/setAlert', { alert: true }, { root: true });
+                    dispatch('alert/setAlert', { alert: true, message: payload.messageAlert }, { root: true });
                     dispatch('fetchData');
                 });
         } catch (error) {

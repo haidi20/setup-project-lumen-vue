@@ -4,7 +4,7 @@
         transition="fade-transition"
         v-model="alert"
         type="success">
-          Update Data Success.
+          {{ getMessage }}
       </v-alert>
   </div>
 </template>
@@ -15,7 +15,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   
   computed: {
-    ...mapGetters("alert", ["getAlert"]),
+    ...mapGetters("alert", ["getAlert", "getMessage"]),
     alert: {
       get() {
         return this.getAlert;
