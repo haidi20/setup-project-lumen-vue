@@ -7,11 +7,11 @@ exports["default"] = void 0;
 var datatableState = {
   page: 1,
   data: [],
+  btnAdd: {},
   search: '',
   headers: [],
   actions: [],
   pageSize: 5,
-  btnAdd: {},
   dataLink: '',
   totalData: 0,
   totalPages: 0,

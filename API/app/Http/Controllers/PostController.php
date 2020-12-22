@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Post;
 
+use Carbon\Carbon;
+
 class PostController extends Controller
 {
     public function index()
@@ -17,6 +19,22 @@ class PostController extends Controller
                 ->paginate($perPage);
 
             return $posts;
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
+
+    public function store()
+    {
+        try {
+            $post = new Post;
+            $post->title = request('title');
+            $post->date = Carbon::now();
+            $post->author = request('author');
+            $post->save();
+
+            // return "Data Berhasil Dikirim";
+            return $post;
         } catch (\Throwable $th) {
             return $th;
         }

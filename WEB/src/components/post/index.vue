@@ -8,7 +8,7 @@
       <Form 
         :post="post"
         :dialog="dialog"
-        :updateData="updateData"
+        :sendData="sendData"
         :closeDialog="closeDialog"
       />
     </v-col>
@@ -30,6 +30,7 @@ export default {
   data() {
     return { 
       dialog: false,
+      method: '', // post or put
       post: {
         id: '',
         title: '',
@@ -65,32 +66,39 @@ export default {
       "setConfig", "fetchData", "methodAction", "methodAction",
     ]),
     editData(value) {
+      this.method = "put";
       this.dialog = true;      
       this.post = {...value};
     },
-    updateData() {
+    addData() {
+      this.dialog = true;     
+      this.method = "post";
+    },
+    sendData() {
       const payload = {
-        method: "put",
+        method: this.method,
         data: this.post,
-        messageAlert: "Update Data Success.",
-        url: `/${this.post.id}`,
+        messageAlert: this.method == "put" ? "Update Data Success." : "Add New Data Success.",
+        url: this.method == "put" ? `/${this.post.id}` : '/',
       }
 
       this.methodAction(payload);
       this.dialog = false;
+      this.post = {
+        id: null,
+        title: null,
+        author: null,
+      }
     },
     removeData(value) {
       const payload = {
-        data: this.post,
+        data: null,
         method: "delete",
         url: `/${value.id}`,
         messageAlert: "Delete Data Success.",
       }
 
       this.methodAction(payload);
-    },
-    addData() {
-      console.log("btn add click");
     },
     closeDialog() {
       this.dialog = false;

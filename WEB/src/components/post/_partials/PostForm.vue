@@ -39,7 +39,7 @@
           <v-btn
             color="green"
             dark
-            @click="updateData"
+            @click="sendData"
           >
             Send
           </v-btn>            
@@ -55,7 +55,7 @@ export default {
   props: {
     post: Object,
     dialog: Boolean,
-    updateData: Function,
+    sendData: Function,
     closeDialog: Function,
   },
 }
