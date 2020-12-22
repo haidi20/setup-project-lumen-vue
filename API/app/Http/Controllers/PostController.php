@@ -16,9 +16,9 @@ class PostController extends Controller
                 ->orderBy('date', 'desc')
                 ->paginate($perPage);
 
-            return $this->responseWithSuccess($posts);
+            return $posts;
         } catch (\Throwable $th) {
-            return $this->responseWithError($th);
+            return $th;
         }
     }
 
@@ -46,7 +46,7 @@ class PostController extends Controller
 
             return "Data Berhasil Dihapus";
         } catch (\Throwable $th) {
-            return $this->responseWithError($th);
+            return $th;
         }
     }
 }

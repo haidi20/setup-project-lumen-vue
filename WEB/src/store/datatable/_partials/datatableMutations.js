@@ -5,8 +5,12 @@ const datatableMutations = {
     NULL_DATA: (state) => {
         state.data = [];
     },
+    INSERT_PAGE_SIZES: (state, payload) => {
+        state.pageSizes = payload.pageSizes;
+    },
     INSERT_DATA: (state, payload) => {
         state.data = payload.data;
+        state.totalData = payload.total;
         state.totalPages = payload.last_page;
     },
     INSERT_HEADERS: (state, payload) => {
@@ -36,6 +40,9 @@ const datatableMutations = {
     },
     WAITING_SEARCH_FALSE: (state) => {
         state.waitingSearch = false;
+    },
+    FALSE_FIRST_VISIT_PAGE: (state) => {
+        state.firstVisitPage = false;
     },
 }
 

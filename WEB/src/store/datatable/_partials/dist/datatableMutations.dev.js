@@ -11,8 +11,12 @@ var datatableMutations = {
   NULL_DATA: function NULL_DATA(state) {
     state.data = [];
   },
+  INSERT_PAGE_SIZES: function INSERT_PAGE_SIZES(state, payload) {
+    state.pageSizes = payload.pageSizes;
+  },
   INSERT_DATA: function INSERT_DATA(state, payload) {
     state.data = payload.data;
+    state.totalData = payload.total;
     state.totalPages = payload.last_page;
   },
   INSERT_HEADERS: function INSERT_HEADERS(state, payload) {
@@ -42,6 +46,9 @@ var datatableMutations = {
   },
   WAITING_SEARCH_FALSE: function WAITING_SEARCH_FALSE(state) {
     state.waitingSearch = false;
+  },
+  FALSE_FIRST_VISIT_PAGE: function FALSE_FIRST_VISIT_PAGE(state) {
+    state.firstVisitPage = false;
   }
 };
 var _default = datatableMutations;

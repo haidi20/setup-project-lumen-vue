@@ -43,9 +43,55 @@ var datatableActions = {
             return regeneratorRuntime.awrap(_api["default"].get("/api".concat(state.dataLink), {
               params: params
             }).then(function (ress) {
-              var fetchResponse = ress.data.data;
+              var fetchResponse = ress.data;
               commit('INSERT_DATA', fetchResponse);
               commit('LOADING_FALSE');
+
+              if (state.firstVisitPage) {
+                var pageSizes = [];
+                var itemPageSize = state.pageSize;
+                var countLoop = fetchResponse.last_page; // 5, 10, 100, 200, 
+                // 1, 2, pageSize, 2,
+                // 10, 100, 200,
+                // 1, pageSize, 2,
+
+                for (var i = 1; i <= countLoop; i++) {
+                  if (state.totalData > itemPageSize) {
+                    if (state.pageSize < 10) {
+                      if (i == 1) {
+                        itemPageSize = itemPageSize * 1;
+                      } else if (i == 3) {
+                        itemPageSize = itemPageSize * itemPageSize;
+                      } else {
+                        itemPageSize = itemPageSize * 2;
+                      }
+
+                      pageSizes.push(itemPageSize);
+                    } else {
+                      // ketika masuk pageSize 2 digit
+                      if (i == 1) {
+                        itemPageSize = itemPageSize * 1;
+                        console.log(itemPageSize);
+                      } else if (i == 2) {
+                        itemPageSize = itemPageSize * itemPageSize;
+                        console.log(itemPageSize);
+                      } else {
+                        itemPageSize = itemPageSize * 2;
+                      }
+
+                      pageSizes.push(itemPageSize);
+                    }
+                  } else {
+                    break;
+                  }
+                }
+
+                console.log(pageSizes);
+                commit('INSERT_PAGE_SIZES', {
+                  pageSizes: pageSizes
+                });
+                commit('FALSE_FIRST_VISIT_PAGE');
+              }
             }));
 
           case 7:

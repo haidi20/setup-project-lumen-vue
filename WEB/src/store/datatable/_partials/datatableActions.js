@@ -13,9 +13,52 @@ const datatableActions = {
         try {
             await http.get(`/api${state.dataLink}`, { params })
                 .then(ress => {
-                    let fetchResponse = ress.data.data;
+                    let fetchResponse = ress.data;
                     commit('INSERT_DATA', fetchResponse);
                     commit('LOADING_FALSE');
+
+                    if (state.firstVisitPage) {
+                        let pageSizes = []
+                        let itemPageSize = state.pageSize;
+                        let countLoop = fetchResponse.last_page;
+                        // 5, 10, 100, 200, 
+                        // 1, 2, pageSize, 2,
+                        // 10, 100, 200,
+                        // 1, pageSize, 2,
+                        for (let i = 1; i <= countLoop; i++) {
+                            if (state.totalData > itemPageSize) {
+                                if (state.pageSize < 10) {
+                                    if (i == 1) {
+                                        itemPageSize = itemPageSize * 1;
+
+                                    } else if (i == 3) {
+                                        itemPageSize = itemPageSize * itemPageSize;
+                                    } else {
+                                        itemPageSize = itemPageSize * 2;
+                                    }
+                                    pageSizes.push(itemPageSize);
+                                } else { // ketika masuk pageSize 2 digit
+                                    if (i == 1) {
+                                        itemPageSize = itemPageSize * 1;
+                                        console.log(itemPageSize);
+                                    } else if (i == 2) {
+                                        itemPageSize = itemPageSize * itemPageSize;
+                                        console.log(itemPageSize);
+                                    } else {
+                                        itemPageSize = itemPageSize * 2;
+                                    }
+                                    pageSizes.push(itemPageSize);
+                                }
+
+                            } else {
+                                break;
+                            }
+                        }
+
+                        console.log(pageSizes);
+                        commit('INSERT_PAGE_SIZES', { pageSizes: pageSizes });
+                        commit('FALSE_FIRST_VISIT_PAGE');
+                    }
                 });
         } catch (error) {
             console.log('error fetch data = ' + error);

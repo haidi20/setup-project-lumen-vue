@@ -28,8 +28,7 @@ export default {
     Datatable, Form, Alert
   },
   data() {
-    return {
-      // ALERT DAN DIALOG PINDAH KE DATATABLE
+    return { 
       dialog: false,
       post: {
         id: '',
@@ -41,8 +40,8 @@ export default {
         titlePage: "Dashboard",
         // actions optional
         actions: [
-          { icon: "mdi-pencil", color: "primary", method: this.editData },
-          { icon: "mdi-delete", color: "red", method: this.removeData },
+          { icon: "mdi-pencil", color: "primary", method: this.editData, permission: '' },
+          { icon: "mdi-delete", color: "red", method: this.removeData, permission: '' },
         ],
         headers: [
           { text: "Title", sortable: false, value: "title" },
