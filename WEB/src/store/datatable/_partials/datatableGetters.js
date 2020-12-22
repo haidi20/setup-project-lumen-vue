@@ -27,13 +27,13 @@ const datatableGetters = {
         return state.actions;
     },
     getNoData: state => item => {
-        let number = state.data.map(function(x) { return x.id; }).indexOf(item.id) + 1;
+        let page = state.page;
+        let pageSize = state.pageSize;
+        let index = state.data.map(function(x) { return x.id; }).indexOf(item.id);
 
-        if (state.page == 1) {
-            return number;
-        } else {
-            return (number + state.pageSize);
-        }
+        let number = index + (page * pageSize);
+
+        return (number - pageSize) + 1 + '.';
     },
 };
 
