@@ -26,6 +26,9 @@ const datatableGetters = {
     getActions: state => {
         return state.actions;
     },
+    getBtnAdd: state => {
+        return state.btnAdd;
+    },
     getNoData: state => item => {
         let page = state.page;
         let pageSize = state.pageSize;

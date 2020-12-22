@@ -1,4 +1,4 @@
-import http from '../../../api'
+import http from '@/api'
 
 const datatableActions = {
     async fetchData({ commit, state }) {
@@ -18,44 +18,8 @@ const datatableActions = {
                     commit('LOADING_FALSE');
 
                     if (state.firstVisitPage) {
-                        let pageSizes = []
-                        let itemPageSize = state.pageSize;
-                        let countLoop = fetchResponse.last_page;
-                        // 5, 10, 100, 200, 
-                        // 1, 2, pageSize, 2,
-                        // 10, 100, 200,
-                        // 1, pageSize, 2,
-                        for (let i = 1; i <= countLoop; i++) {
-                            if (state.totalData > itemPageSize) {
-                                if (state.pageSize < 10) {
-                                    if (i == 1) {
-                                        itemPageSize = itemPageSize * 1;
+                        const pageSizes = resultPageSizes(state, fetchResponse);
 
-                                    } else if (i == 3) {
-                                        itemPageSize = itemPageSize * itemPageSize;
-                                    } else {
-                                        itemPageSize = itemPageSize * 2;
-                                    }
-                                    pageSizes.push(itemPageSize);
-                                } else { // ketika masuk pageSize 2 digit
-                                    if (i == 1) {
-                                        itemPageSize = itemPageSize * 1;
-                                        console.log(itemPageSize);
-                                    } else if (i == 2) {
-                                        itemPageSize = itemPageSize * itemPageSize;
-                                        console.log(itemPageSize);
-                                    } else {
-                                        itemPageSize = itemPageSize * 2;
-                                    }
-                                    pageSizes.push(itemPageSize);
-                                }
-
-                            } else {
-                                break;
-                            }
-                        }
-
-                        console.log(pageSizes);
                         commit('INSERT_PAGE_SIZES', { pageSizes: pageSizes });
                         commit('FALSE_FIRST_VISIT_PAGE');
                     }
@@ -74,9 +38,15 @@ const datatableActions = {
             data: object | {title: 'judul', content: 'isinya'}
         }
     */
-    async methodAction({ commit, dispatch }, payload) {
+    async methodAction({ commit, dispatch, state }, payload) {
         try {
-            await http({...payload })
+            const setupHttp = {
+                url: '/api' + state.dataLink + payload.url,
+                data: payload.data,
+                method: payload.method,
+            }
+
+            await http({...setupHttp })
                 .then(response => {
                     dispatch('alert/setAlert', { alert: true, message: payload.messageAlert }, { root: true });
                     dispatch('fetchData');
@@ -131,7 +101,9 @@ const datatableActions = {
 
         dispatch('setHeaders', config);
         commit('INSERT_ACTIONS', config);
+        commit('INSERT_PAGE_SIZE', config);
         commit('INSERT_DATA_LINK', config);
+        commit('INSERT_BTN_ADD', config);
 
         dispatch('fetchData');
     },
@@ -145,6 +117,44 @@ const datatableActions = {
 
         commit('WAITING_SEARCH_TRUE');
     },
+}
+
+const resultPageSizes = (state, fetchResponse) => {
+    let pageSizes = []
+    let itemPageSize = state.pageSize;
+    let countLoop = fetchResponse.last_page;
+    // 5, 10, 100, 200, 
+    // 1, 2, pageSize, 2,
+    // 10, 100, 200,
+    // 1, pageSize, 2,
+    for (let i = 1; i <= countLoop; i++) {
+        if (state.totalData > itemPageSize) {
+            if (state.pageSize < 10) {
+                if (i == 1) {
+                    itemPageSize = itemPageSize * 1;
+                } else if (i == 3) {
+                    itemPageSize = itemPageSize * itemPageSize;
+                } else {
+                    itemPageSize = itemPageSize * 2;
+                }
+                pageSizes.push(itemPageSize);
+            } else { // ketika masuk pageSize 2 digit
+                if (i == 1) {
+                    itemPageSize = itemPageSize * 1;
+                } else if (i == 2) {
+                    itemPageSize = itemPageSize * itemPageSize;
+                } else {
+                    itemPageSize = itemPageSize * 2;
+                }
+                pageSizes.push(itemPageSize);
+            }
+
+        } else {
+            break;
+        }
+    }
+
+    return pageSizes;
 }
 
 export default datatableActions;

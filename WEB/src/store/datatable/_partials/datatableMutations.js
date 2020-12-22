@@ -5,6 +5,9 @@ const datatableMutations = {
     NULL_DATA: (state) => {
         state.data = [];
     },
+    INSERT_PAGE_SIZE: (state, payload) => {
+        state.pageSize = payload.pageSize;
+    },
     INSERT_PAGE_SIZES: (state, payload) => {
         state.pageSizes = payload.pageSizes;
     },
@@ -43,6 +46,9 @@ const datatableMutations = {
     },
     FALSE_FIRST_VISIT_PAGE: (state) => {
         state.firstVisitPage = false;
+    },
+    INSERT_BTN_ADD: (state, payload) => {
+        state.btnAdd = payload.btnAdd;
     },
 }
 

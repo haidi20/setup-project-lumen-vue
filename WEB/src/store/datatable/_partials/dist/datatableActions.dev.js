@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _api = _interopRequireDefault(require("../../../api"));
+var _api = _interopRequireDefault(require("@/api"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -48,45 +48,7 @@ var datatableActions = {
               commit('LOADING_FALSE');
 
               if (state.firstVisitPage) {
-                var pageSizes = [];
-                var itemPageSize = state.pageSize;
-                var countLoop = fetchResponse.last_page; // 5, 10, 100, 200, 
-                // 1, 2, pageSize, 2,
-                // 10, 100, 200,
-                // 1, pageSize, 2,
-
-                for (var i = 1; i <= countLoop; i++) {
-                  if (state.totalData > itemPageSize) {
-                    if (state.pageSize < 10) {
-                      if (i == 1) {
-                        itemPageSize = itemPageSize * 1;
-                      } else if (i == 3) {
-                        itemPageSize = itemPageSize * itemPageSize;
-                      } else {
-                        itemPageSize = itemPageSize * 2;
-                      }
-
-                      pageSizes.push(itemPageSize);
-                    } else {
-                      // ketika masuk pageSize 2 digit
-                      if (i == 1) {
-                        itemPageSize = itemPageSize * 1;
-                        console.log(itemPageSize);
-                      } else if (i == 2) {
-                        itemPageSize = itemPageSize * itemPageSize;
-                        console.log(itemPageSize);
-                      } else {
-                        itemPageSize = itemPageSize * 2;
-                      }
-
-                      pageSizes.push(itemPageSize);
-                    }
-                  } else {
-                    break;
-                  }
-                }
-
-                console.log(pageSizes);
+                var pageSizes = resultPageSizes(state, fetchResponse);
                 commit('INSERT_PAGE_SIZES', {
                   pageSizes: pageSizes
                 });
@@ -122,15 +84,20 @@ var datatableActions = {
       }
   */
   methodAction: function methodAction(_ref2, payload) {
-    var commit, dispatch;
+    var commit, dispatch, state, setupHttp;
     return regeneratorRuntime.async(function methodAction$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            commit = _ref2.commit, dispatch = _ref2.dispatch;
+            commit = _ref2.commit, dispatch = _ref2.dispatch, state = _ref2.state;
             _context2.prev = 1;
-            _context2.next = 4;
-            return regeneratorRuntime.awrap((0, _api["default"])(_objectSpread({}, payload)).then(function (response) {
+            setupHttp = {
+              url: '/api' + state.dataLink + payload.url,
+              data: payload.data,
+              method: payload.method
+            };
+            _context2.next = 5;
+            return regeneratorRuntime.awrap((0, _api["default"])(_objectSpread({}, setupHttp)).then(function (response) {
               dispatch('alert/setAlert', {
                 alert: true,
                 message: payload.messageAlert
@@ -140,22 +107,22 @@ var datatableActions = {
               dispatch('fetchData');
             }));
 
-          case 4:
-            _context2.next = 10;
+          case 5:
+            _context2.next = 11;
             break;
 
-          case 6:
-            _context2.prev = 6;
+          case 7:
+            _context2.prev = 7;
             _context2.t0 = _context2["catch"](1);
             console.log('error update data = ' + _context2.t0);
             return _context2.abrupt("return", null);
 
-          case 10:
+          case 11:
           case "end":
             return _context2.stop();
         }
       }
-    }, null, null, [[1, 6]]);
+    }, null, null, [[1, 7]]);
   },
   setDataLink: function setDataLink(_ref3, payload) {
     var commit = _ref3.commit;
@@ -225,7 +192,9 @@ var datatableActions = {
     var config = payload.config;
     dispatch('setHeaders', config);
     commit('INSERT_ACTIONS', config);
+    commit('INSERT_PAGE_SIZE', config);
     commit('INSERT_DATA_LINK', config);
+    commit('INSERT_BTN_ADD', config);
     dispatch('fetchData');
   },
   streamSearch: function streamSearch(_ref10) {
@@ -243,5 +212,46 @@ var datatableActions = {
     commit('WAITING_SEARCH_TRUE');
   }
 };
+
+var resultPageSizes = function resultPageSizes(state, fetchResponse) {
+  var pageSizes = [];
+  var itemPageSize = state.pageSize;
+  var countLoop = fetchResponse.last_page; // 5, 10, 100, 200, 
+  // 1, 2, pageSize, 2,
+  // 10, 100, 200,
+  // 1, pageSize, 2,
+
+  for (var i = 1; i <= countLoop; i++) {
+    if (state.totalData > itemPageSize) {
+      if (state.pageSize < 10) {
+        if (i == 1) {
+          itemPageSize = itemPageSize * 1;
+        } else if (i == 3) {
+          itemPageSize = itemPageSize * itemPageSize;
+        } else {
+          itemPageSize = itemPageSize * 2;
+        }
+
+        pageSizes.push(itemPageSize);
+      } else {
+        // ketika masuk pageSize 2 digit
+        if (i == 1) {
+          itemPageSize = itemPageSize * 1;
+        } else if (i == 2) {
+          itemPageSize = itemPageSize * itemPageSize;
+        } else {
+          itemPageSize = itemPageSize * 2;
+        }
+
+        pageSizes.push(itemPageSize);
+      }
+    } else {
+      break;
+    }
+  }
+
+  return pageSizes;
+};
+
 var _default = datatableActions;
 exports["default"] = _default;

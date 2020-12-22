@@ -36,12 +36,18 @@ export default {
         author: '',
       },
       config: {
+        pageSize: 5,
         dataLink: "/posts",
         titlePage: "Dashboard",
+        // addData optional
+        btnAdd: {
+          method: this.addData, permission: true
+        },
         // actions optional
+        // permission comming soon
         actions: [
-          { icon: "mdi-pencil", color: "primary", method: this.editData, permission: '' },
-          { icon: "mdi-delete", color: "red", method: this.removeData, permission: '' },
+          { icon: "mdi-pencil", color: "primary", method: this.editData, permission: true },
+          { icon: "mdi-delete", color: "red", method: this.removeData, permission: true },
         ],
         headers: [
           { text: "Title", sortable: false, value: "title" },
@@ -67,7 +73,7 @@ export default {
         method: "put",
         data: this.post,
         messageAlert: "Update Data Success.",
-        url: `/api/posts/${this.post.id}`,
+        url: `/${this.post.id}`,
       }
 
       this.methodAction(payload);
@@ -77,11 +83,14 @@ export default {
       const payload = {
         data: this.post,
         method: "delete",
-        url: `/api/posts/${value.id}`,
+        url: `/${value.id}`,
         messageAlert: "Delete Data Success.",
       }
 
       this.methodAction(payload);
+    },
+    addData() {
+      console.log("btn add click");
     },
     closeDialog() {
       this.dialog = false;

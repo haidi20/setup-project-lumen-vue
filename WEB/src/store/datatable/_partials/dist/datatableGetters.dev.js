@@ -32,6 +32,9 @@ var datatableGetters = {
   getActions: function getActions(state) {
     return state.actions;
   },
+  getBtnAdd: function getBtnAdd(state) {
+    return state.btnAdd;
+  },
   getNoData: function getNoData(state) {
     return function (item) {
       var page = state.page;

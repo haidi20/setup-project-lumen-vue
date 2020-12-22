@@ -1,5 +1,20 @@
 <template>
   <div>
+    <div
+      v-if="getBtnAdd != null"
+    >
+      <br>
+      <v-icon
+        large
+        class="mr-2"
+        color="success"
+        style="cursor:pointer"
+        @click="getBtnAdd.method()"
+      >
+        mdi-plus-box
+      </v-icon>
+      <br>
+    </div>
     <div class="space-top-datatable">
       <p style="display:inline-block">show</p>
        <v-select
@@ -73,6 +88,7 @@ export default {
       "getNoData",
       "isLoading",
       "getSearch",
+      "getBtnAdd",
       "getActions",
       "getHeaders",
       "getPageSize",
@@ -149,7 +165,7 @@ export default {
 }
 .space-top-datatable {
   width: 100%;
-  height: 3em;
+  height: 4em;
   display: inline-block;
 }
 </style>
