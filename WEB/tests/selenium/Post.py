@@ -31,7 +31,7 @@ class Post:
     getItemPageSize[0].click()
     time.sleep(2)
 
-  def searchData(self, keyword = 'how'):
+  def searchData(self, keyword = 'how', clearSearch = True):
     # untuk menampung data hasil pencarian
     allDataPost = []
 
@@ -48,8 +48,9 @@ class Post:
     print("get first data by searching")
     print("data", allDataPost)
     time.sleep(1)
-    self.__clearSearch(search)
-    time.sleep(2)
+    if clearSearch:
+      self.__clearSearch(search)
+      time.sleep(2)
 
   def __clearSearch(self, element):
     length = len(element.get_attribute('value'))
@@ -88,7 +89,30 @@ class Post:
     self.searchData(titleText)
 
   def editData(self):
+    self.searchData(keyword='17 agustus', clearSearch=False)
 
+    btnEdit = self.driver.find_element_by_class_name('mdi-pencil')
+    btnEdit.click()
+    time.sleep(2)
+
+    titleForm = self.driver.find_element_by_id("title")
+    authorForm = self.driver.find_element_by_id("author")
+
+    #clear form 
+    self.__clearSearch(titleForm)
+    self.__clearSearch(authorForm)
+
+    # update data
+    titleText = '22 Desember 2020'
+    authorText = 'anak sedunia'
+    titleForm.send_keys(titleText)
+    authorForm.send_keys(authorText)
+    time.sleep(2)
+
+    # kirim data
+    btnSendData = self.driver.find_element_by_id("send_data")
+    btnSendData.click()
+    time.sleep(2)
 
   def closeBrowser(self):
     print("")
