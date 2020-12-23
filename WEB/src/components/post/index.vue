@@ -71,6 +71,11 @@ export default {
       this.post = {...value};
     },
     addData() {
+      this.post = {
+        id: null,
+        title: null,
+        author: null,
+      }
       this.dialog = true;     
       this.method = "post";
     },

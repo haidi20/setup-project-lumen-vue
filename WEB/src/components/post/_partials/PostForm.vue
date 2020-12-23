@@ -14,10 +14,12 @@
           <!-- content -->
           <br>
           <v-text-field
+            id="title"
             label="Title"
             v-model="post.title"
           ></v-text-field>
           <v-text-field
+            id="author"
             label="Author"
             v-model="post.author"
           ></v-text-field>
@@ -37,6 +39,7 @@
               Close
           </v-btn>
           <v-btn
+            id="send_data"
             color="green"
             dark
             @click="sendData"

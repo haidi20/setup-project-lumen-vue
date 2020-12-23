@@ -1,7 +1,8 @@
 from Post import Post
 
 post = Post()
-post.changePageSize()
+# post.changePageSize()  #masih belum berhasil karena classnya selalu berubah.
 post.searchData()
-post.changePage()
+# post.changePage()
+post.addData()
 post.closeBrowser()

@@ -1,16 +1,19 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use Carbon\Carbon;
 
 use App\User;
-use App\Models\AuthToken;
+use App\AuthToken;
 
 class AuthController extends Controller
 {
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $dateNow = Carbon::now()->setTimezone("Asia/Singapore")->format('Y-m-d H:i:s');
 
         $token = app('auth')->attempt($request->only('name', 'password'));
@@ -20,7 +23,7 @@ class AuthController extends Controller
 
         $user = "";
 
-        if(app()->make('hash')->check($request->password, $login->password)) {
+        if (app()->make('hash')->check($request->password, $login->password)) {
             $user = User::where(["name" => $request->name]);
             $user->update(['token' => $token]);
             $user = $user->first();
@@ -33,12 +36,12 @@ class AuthController extends Controller
             $authToken->save();
         }
 
-        if($token != null) {
-            $token = "bearer ".$token;
-        }else {
+        if ($token != null) {
+            $token = "bearer " . $token;
+        } else {
             $token = null;
         }
-    
+
         // return $this->respondWithToken($token);
         return response()->json(["token" => $token, 'pid' => $user->pid]);
     }

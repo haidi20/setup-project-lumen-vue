@@ -26,10 +26,12 @@ class PostController extends Controller
 
     public function store()
     {
+        $dateNow = Carbon::now()->setTimezone("Asia/Singapore")->format('Y-m-d H:i:s');
+
         try {
             $post = new Post;
             $post->title = request('title');
-            $post->date = Carbon::now();
+            $post->date = $dateNow;
             $post->author = request('author');
             $post->save();
 

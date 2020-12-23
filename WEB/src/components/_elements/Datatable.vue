@@ -6,7 +6,7 @@
       <br>
       <v-icon
         large
-        class="mr-2"
+        class="mr-2 btn-add"
         color="success"
         style="cursor:pointer"
         @click="getBtnAdd.method()"
