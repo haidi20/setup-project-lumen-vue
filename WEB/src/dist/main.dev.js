@@ -10,6 +10,10 @@ var _layouts = _interopRequireDefault(require("./components/_layouts"));
 
 var _store = _interopRequireDefault(require("./store"));
 
+var _router = _interopRequireDefault(require("./router"));
+
+require("vuetify/dist/vuetify.min.css");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 // import Vuetify from 'vuetify/lib/framework'
@@ -20,6 +24,7 @@ _vue["default"].config.productionTip = false;
 new _vue["default"]({
   store: _store["default"],
   vuetify: _vuetify["default"],
+  router: _router["default"],
   render: function render(h) {
     return h(_layouts["default"]);
   }
