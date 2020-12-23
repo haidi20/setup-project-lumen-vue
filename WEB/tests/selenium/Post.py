@@ -97,10 +97,11 @@ class Post:
 
     titleForm = self.driver.find_element_by_id("title")
     authorForm = self.driver.find_element_by_id("author")
+    search = self.driver.find_element_by_css_selector(".search > div > div > div > input")
 
     #clear form 
     self.__clearSearch(titleForm)
-    self.__clearSearch(authorForm)
+    self.__clearSearch(authorForm)    
 
     # update data
     titleText = '22 Desember 2020'
@@ -112,7 +113,18 @@ class Post:
     # kirim data
     btnSendData = self.driver.find_element_by_id("send_data")
     btnSendData.click()
+    time.sleep(1)
+    self.__clearSearch(search)
     time.sleep(2)
+
+  def deleteData(self):
+    titleText = '22 Desember 2020'
+    self.searchData(keyword=titleText, clearSearch=False)
+
+    btnEdit = self.driver.find_element_by_class_name('mdi-delete')
+    btnEdit.click()
+    time.sleep(3)
+
 
   def closeBrowser(self):
     print("")
