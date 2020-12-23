@@ -9,25 +9,28 @@ Vue.use(VueRouter)
 
 export const listRoute = [{
         path: '/',
+        active: false,
         name: 'Dashboard',
         component: Dashboard,
         icon: 'mdi-view-dashboard'
     },
     {
         path: null,
+        icon: 'mdi-folder',
+        active: false,
         name: 'Master',
         component: null,
-        icon: null,
         childs: [{
-            path: '/post',
+            icon: null,
             name: 'Post',
+            active: false,
+            path: '/post',
             component: Post,
-            icon: 'mdi-folder'
         }]
     },
 ]
 
-export const routes = (
+const routes = (
     listRoute.map((v) => flatten(v))
 )
 

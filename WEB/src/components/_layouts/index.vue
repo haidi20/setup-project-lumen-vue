@@ -21,24 +21,57 @@
           </v-list-item>
 
           <v-divider></v-divider>
-
-          <v-list
-            dense
-            nav
-          >
-            <v-list-item
-              v-for="item in menus"
-              :key="item.name"
-              :to="item.path"
+          <v-list>
+            <v-list-item-group
+              color="primary"
+              v-model="selected"
             >
-              <v-list-item-icon>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-icon>
+              <v-list-item
+                v-for="item in menus"
+                :key="item.name"
+              >
+                <v-list-item-icon
+                  v-if="item.childs == undefined"
+                >
+                  <v-icon>{{ item.icon }}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="item.name"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
 
-              <v-list-item-content>
+            </v-list-item-group>
+            <v-list-group
+              v-for="item in menusHaveSubMenu"
+              :key="item.name"
+              v-model="item.active"
+              :prepend-icon="item.icon"
+              no-action
+            >
+              <v-list-item-content
+                v-if="item.childs == undefined"
+              >
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item-content>
-            </v-list-item>
+
+              <template v-slot:activator>
+                <v-list-item-content
+                  v-if="item.childs != undefined"
+                >
+                  <v-list-item-title v-text="item.name"></v-list-item-title>
+                </v-list-item-content>
+              </template>
+
+              <v-list-item
+                v-for="child in item.childs"
+                :key="child.name"
+                :to="item.path"
+              >
+                <v-list-item-content>
+                  <v-list-item-title v-text="child.name"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-group>
           </v-list>
         </v-navigation-drawer>
       </v-card>
@@ -69,16 +102,19 @@
 </template>
 
 <script>
-import {routes} from '@/router';
+import {listRoute} from '@/router';
 
   export default {
     data: () => ({ 
       drawer: true,
+      right: null, 
+      selected: 0,   
       menus: [],
-      right: null,    
+      menusHaveSubMenu: [],
     }),
     mounted() {
-      this.menus = routes;
+      this.menus = listRoute.filter(item => item.childs == undefined);
+      this.menusHaveSubMenu = listRoute.filter(item => item.childs != undefined);
     }
   }
 </script>

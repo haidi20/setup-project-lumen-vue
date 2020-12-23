@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.routes = exports.listRoute = void 0;
+exports["default"] = exports.listRoute = void 0;
 
 var _vue = _interopRequireDefault(require("vue"));
 
@@ -20,26 +20,28 @@ _vue["default"].use(_vueRouter["default"]);
 
 var listRoute = [{
   path: '/',
+  active: false,
   name: 'Dashboard',
   component: _dashboard["default"],
   icon: 'mdi-view-dashboard'
 }, {
   path: null,
+  icon: 'mdi-folder',
+  active: false,
   name: 'Master',
   component: null,
-  icon: null,
   childs: [{
-    path: '/post',
+    icon: null,
     name: 'Post',
-    component: _post["default"],
-    icon: 'mdi-folder'
+    active: false,
+    path: '/post',
+    component: _post["default"]
   }]
 }];
 exports.listRoute = listRoute;
 var routes = listRoute.map(function (v) {
   return flatten(v);
 });
-exports.routes = routes;
 
 function flatten(item) {
   var _final = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
