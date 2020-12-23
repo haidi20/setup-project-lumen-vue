@@ -7,19 +7,43 @@ import Post from '@/components/post'
 
 Vue.use(VueRouter)
 
-export const routes = [{
+export const listRoute = [{
         path: '/',
         name: 'Dashboard',
         component: Dashboard,
         icon: 'mdi-view-dashboard'
     },
     {
-        path: '/post',
-        name: 'Post',
-        component: Post,
-        icon: 'mdi-folder'
-    }
+        path: null,
+        name: 'Master',
+        component: null,
+        icon: null,
+        childs: [{
+            path: '/post',
+            name: 'Post',
+            component: Post,
+            icon: 'mdi-folder'
+        }]
+    },
 ]
+
+export const routes = (
+    listRoute.map((v) => flatten(v))
+)
+
+function flatten(item, final = {}) {
+    if (item['childs'] != undefined) {
+        item['childs'].map(value =>
+            flatten(value, final)
+        )
+    } else {
+        for (let key in item) {
+            final[key] = item[key]
+        }
+    }
+
+    return final;
+}
 
 const router = new VueRouter({
     mode: 'history',

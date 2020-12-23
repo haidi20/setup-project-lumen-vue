@@ -8,8 +8,6 @@ const datatableActions = {
             per_page: state.pageSize,
         }
 
-        console.log("fetch data");
-
         commit('NULL_DATA');
         commit('LOADING_TRUE');
         try {

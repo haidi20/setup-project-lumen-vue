@@ -36,11 +36,10 @@ var datatableActions = {
               search: state.search,
               per_page: state.pageSize
             };
-            console.log("fetch data");
             commit('NULL_DATA');
             commit('LOADING_TRUE');
-            _context.prev = 5;
-            _context.next = 8;
+            _context.prev = 4;
+            _context.next = 7;
             return regeneratorRuntime.awrap(_api["default"].get("/api".concat(state.dataLink), {
               params: params
             }).then(function (ress) {
@@ -57,22 +56,22 @@ var datatableActions = {
               }
             }));
 
-          case 8:
-            _context.next = 14;
+          case 7:
+            _context.next = 13;
             break;
 
-          case 10:
-            _context.prev = 10;
-            _context.t0 = _context["catch"](5);
+          case 9:
+            _context.prev = 9;
+            _context.t0 = _context["catch"](4);
             console.log('error fetch data = ' + _context.t0);
             return _context.abrupt("return", null);
 
-          case 14:
+          case 13:
           case "end":
             return _context.stop();
         }
       }
-    }, null, null, [[5, 10]]);
+    }, null, null, [[4, 9]]);
   },
 
   /*
