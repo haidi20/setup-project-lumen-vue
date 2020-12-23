@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports["default"] = exports.routes = void 0;
 
 var _vue = _interopRequireDefault(require("vue"));
 
@@ -21,12 +21,15 @@ _vue["default"].use(_vueRouter["default"]);
 var routes = [{
   path: '/',
   name: 'Dashboard',
-  component: _dashboard["default"]
+  component: _dashboard["default"],
+  icon: 'mdi-view-dashboard'
 }, {
   path: '/post',
   name: 'Post',
-  component: _post["default"]
+  component: _post["default"],
+  icon: 'mdi-folder'
 }];
+exports.routes = routes;
 var router = new _vueRouter["default"]({
   mode: 'history',
   base: process.env.BASE_URL,

@@ -12,7 +12,7 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title class="title">
-                Setup Project
+                Setup Project SPA
               </v-list-item-title>
               <v-list-item-subtitle>
                 <!-- subtext --><br>
@@ -27,16 +27,16 @@
             nav
           >
             <v-list-item
-              v-for="item in items"
-              :key="item.title"
-              link
+              v-for="item in menus"
+              :key="item.name"
+              :to="item.path"
             >
               <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-icon>
 
               <v-list-item-content>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -44,32 +44,41 @@
       </v-card>
     </v-navigation-drawer>
 
-    <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar 
+      color="primary"
+      app>
+      <v-app-bar-nav-icon 
+        color="white"
+        @click="drawer = !drawer">
+
+      </v-app-bar-nav-icon>
 
       <!-- <v-toolbar-title>Application</v-toolbar-title> JANGAN DI HAPUS -->
       <v-spacer></v-spacer>
        <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
+        <v-icon
+          color="white">
+            mdi-dots-vertical</v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-main>
-      <!--  -->
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import {routes} from '@/router';
+
   export default {
     data: () => ({ 
       drawer: true,
-      items: [
-        { title: 'Dashboard', icon: 'mdi-view-dashboard' },
-        { title: 'Photos', icon: 'mdi-image' },
-        { title: 'About', icon: 'mdi-help-box' },
-      ],
+      menus: [],
       right: null,    
     }),
+    mounted() {
+      this.menus = routes;
+    }
   }
 </script>

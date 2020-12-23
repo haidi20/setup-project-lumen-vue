@@ -36,10 +36,11 @@ var datatableActions = {
               search: state.search,
               per_page: state.pageSize
             };
+            console.log("fetch data");
             commit('NULL_DATA');
             commit('LOADING_TRUE');
-            _context.prev = 4;
-            _context.next = 7;
+            _context.prev = 5;
+            _context.next = 8;
             return regeneratorRuntime.awrap(_api["default"].get("/api".concat(state.dataLink), {
               params: params
             }).then(function (ress) {
@@ -56,22 +57,22 @@ var datatableActions = {
               }
             }));
 
-          case 7:
-            _context.next = 13;
+          case 8:
+            _context.next = 14;
             break;
 
-          case 9:
-            _context.prev = 9;
-            _context.t0 = _context["catch"](4);
+          case 10:
+            _context.prev = 10;
+            _context.t0 = _context["catch"](5);
             console.log('error fetch data = ' + _context.t0);
             return _context.abrupt("return", null);
 
-          case 13:
+          case 14:
           case "end":
             return _context.stop();
         }
       }
-    }, null, null, [[4, 9]]);
+    }, null, null, [[5, 10]]);
   },
 
   /*
@@ -175,7 +176,7 @@ var datatableActions = {
         state = _ref7.state;
 
     if (state.pageSize != payload.pageSize) {
-      commit('PAGE_SIZE_CHANGE', payload);
+      commit('INSERT_PAGE_SIZE', payload);
       dispatch('fetchData');
     }
   },
@@ -192,7 +193,8 @@ var datatableActions = {
     var config = payload.config;
     dispatch('setHeaders', config);
     commit('INSERT_ACTIONS', config);
-    commit('INSERT_PAGE_SIZE', config);
+    commit('INSERT_PAGE_SIZE', config); // set page size and page
+
     commit('INSERT_DATA_LINK', config);
     commit('INSERT_BTN_ADD', config);
     dispatch('fetchData');

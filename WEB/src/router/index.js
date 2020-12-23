@@ -7,15 +7,17 @@ import Post from '@/components/post'
 
 Vue.use(VueRouter)
 
-const routes = [{
+export const routes = [{
         path: '/',
         name: 'Dashboard',
-        component: Dashboard
+        component: Dashboard,
+        icon: 'mdi-view-dashboard'
     },
     {
         path: '/post',
         name: 'Post',
-        component: Post
+        component: Post,
+        icon: 'mdi-folder'
     }
 ]
 

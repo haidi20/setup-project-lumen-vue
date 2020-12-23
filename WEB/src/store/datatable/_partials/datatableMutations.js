@@ -6,6 +6,7 @@ const datatableMutations = {
         state.data = [];
     },
     INSERT_PAGE_SIZE: (state, payload) => {
+        state.page = 1;
         state.pageSize = payload.pageSize;
     },
     INSERT_PAGE_SIZES: (state, payload) => {
@@ -24,10 +25,6 @@ const datatableMutations = {
     },
     INSERT_PAGE: (state, payload) => {
         state.page = payload.page;
-    },
-    PAGE_SIZE_CHANGE: (state, payload) => {
-        state.page = 1;
-        state.pageSize = payload.pageSize;
     },
     LOADING_TRUE: (state) => {
         state.loading = true;

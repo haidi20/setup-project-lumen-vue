@@ -8,6 +8,8 @@ const datatableActions = {
             per_page: state.pageSize,
         }
 
+        console.log("fetch data");
+
         commit('NULL_DATA');
         commit('LOADING_TRUE');
         try {
@@ -88,7 +90,7 @@ const datatableActions = {
     },
     pageSizeChange({ commit, dispatch, state }, payload) {
         if (state.pageSize != payload.pageSize) {
-            commit('PAGE_SIZE_CHANGE', payload);
+            commit('INSERT_PAGE_SIZE', payload);
             dispatch('fetchData');
         }
     },
@@ -101,7 +103,7 @@ const datatableActions = {
 
         dispatch('setHeaders', config);
         commit('INSERT_ACTIONS', config);
-        commit('INSERT_PAGE_SIZE', config);
+        commit('INSERT_PAGE_SIZE', config); // set page size and page
         commit('INSERT_DATA_LINK', config);
         commit('INSERT_BTN_ADD', config);
 
