@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import vuetify from './plugins/vuetify'
 import AxiosPlugin from 'vue-axios-cors'
-import Layout from './components/_layouts'
+import Core from './components/core'
 import store from './store'
 import router from './router'
 import 'vuetify/dist/vuetify.min.css'
@@ -15,5 +15,5 @@ new Vue({
     store,
     vuetify,
     router,
-    render: h => h(Layout)
+    render: h => h(Core)
 }).$mount('#app')

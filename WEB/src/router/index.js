@@ -2,51 +2,68 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // components
-import Dashboard from '@/components/dashboard'
 import Post from '@/components/post'
+import User from '@/components/user'
+import Layout from '@/components/_layouts'
+import Master from '@/components/master'
+import Login from '@/components/auth/login'
+import Dashboard from '@/components/dashboard'
 
 Vue.use(VueRouter)
 
-export const listRoute = [{
-        path: '/',
-        active: false,
-        name: 'Dashboard',
-        component: Dashboard,
-        icon: 'mdi-view-dashboard'
+export const routes = [{
+        path: '/login',
+        name: 'Login',
+        component: Login,
+        icon: null
     },
     {
-        path: null,
-        icon: 'mdi-folder',
-        active: false,
-        name: 'Master',
-        component: null,
-        childs: [{
-            icon: null,
-            name: 'Post',
-            active: false,
-            path: '/post',
-            component: Post,
-        }]
+        path: '/',
+        name: 'Layout',
+        component: Layout,
+        icon: null,
+        children: [{
+                path: '/',
+                name: 'Dashboard',
+                component: Dashboard,
+                icon: 'mdi-view-dashboard'
+            },
+            {
+                path: '/master',
+                icon: 'mdi-folder',
+                name: 'Master',
+                component: Master,
+                children: [{
+                        icon: null,
+                        name: 'User',
+                        path: '/master/user',
+                        component: User,
+                    },
+                    {
+                        icon: null,
+                        name: 'Post',
+                        path: '/master/post',
+                        component: Post,
+                    }
+                ]
+            },
+        ]
     },
-]
+];
 
-const routes = (
-    listRoute.map((v) => flatten(v))
-)
+// function flatten(item, final = {}) {
+//     if (item['children'] != undefined) {
+//         item['children'].map(value =>
+//             flatten(value, final)
+//         )
+//     } else {
+//         for (let key in item) {
+//             final[key] = item[key]
+//         }
+//     }
 
-function flatten(item, final = {}) {
-    if (item['childs'] != undefined) {
-        item['childs'].map(value =>
-            flatten(value, final)
-        )
-    } else {
-        for (let key in item) {
-            final[key] = item[key]
-        }
-    }
-
-    return final;
-}
+//     return final;
+// }
 
 const router = new VueRouter({
     mode: 'history',

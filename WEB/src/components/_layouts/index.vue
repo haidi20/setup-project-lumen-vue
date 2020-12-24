@@ -24,14 +24,17 @@
           <v-list>
             <v-list-item-group
               color="primary"
-              v-model="selected"
+               
             >
-              <v-list-item
+               <v-list-item
                 v-for="item in menus"
                 :key="item.name"
+                :to="item.path"
+                active-class="highlighted" 
+                           
               >
                 <v-list-item-icon
-                  v-if="item.childs == undefined"
+                  v-if="item.children == undefined"
                 >
                   <v-icon>{{ item.icon }}</v-icon>
                 </v-list-item-icon>
@@ -48,24 +51,19 @@
               :prepend-icon="item.icon"
               no-action
             >
-              <v-list-item-content
-                v-if="item.childs == undefined"
-              >
-                <v-list-item-title>{{ item.name }}</v-list-item-title>
-              </v-list-item-content>
-
               <template v-slot:activator>
                 <v-list-item-content
-                  v-if="item.childs != undefined"
+                  v-if="item.children != undefined"
                 >
                   <v-list-item-title v-text="item.name"></v-list-item-title>
                 </v-list-item-content>
               </template>
 
               <v-list-item
-                v-for="child in item.childs"
+                v-for="child in item.children"
                 :key="child.name"
-                :to="item.path"
+                :to="child.path"
+                active-class="highlighted"                
               >
                 <v-list-item-content>
                   <v-list-item-title v-text="child.name"></v-list-item-title>
@@ -102,19 +100,41 @@
 </template>
 
 <script>
-import {listRoute} from '@/router';
+import {routes} from '@/router';
 
   export default {
-    data: () => ({ 
-      drawer: true,
-      right: null, 
-      selected: 0,   
-      menus: [],
-      menusHaveSubMenu: [],
-    }),
+    data() {
+      return {
+        right: null,   
+        drawer: true,
+        closeOnClick: true,
+
+        menus: [],
+        menusHaveSubMenu: [],
+        
+      }
+    },
     mounted() {
-      this.menus = listRoute.filter(item => item.childs == undefined);
-      this.menusHaveSubMenu = listRoute.filter(item => item.childs != undefined);
+      let filterMenus = routes.filter(item => item.name === "Layout").map(item => item.children);
+      
+      filterMenus.map(item => {
+        item.map(value => {
+          if(value.children == undefined) {
+            this.menus = [...this.menus, value];
+          }else {
+            this.menusHaveSubMenu = [...this.menusHaveSubMenu, value];
+          }
+        });
+      });
+    },
+    methods: {
+      chooseSelected(name) {
+        let index = routes.map(function(x) { return x.name; }).indexOf(name);
+        if(this.selected != index) {
+          console.log('tidak sama');
+          this.selected = index;
+        }
+      }
     }
   }
 </script>

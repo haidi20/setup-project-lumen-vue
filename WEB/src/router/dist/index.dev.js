@@ -3,62 +3,75 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.listRoute = void 0;
+exports["default"] = exports.routes = void 0;
 
 var _vue = _interopRequireDefault(require("vue"));
 
 var _vueRouter = _interopRequireDefault(require("vue-router"));
 
-var _dashboard = _interopRequireDefault(require("@/components/dashboard"));
-
 var _post = _interopRequireDefault(require("@/components/post"));
+
+var _user = _interopRequireDefault(require("@/components/user"));
+
+var _layouts = _interopRequireDefault(require("@/components/_layouts"));
+
+var _master = _interopRequireDefault(require("@/components/master"));
+
+var _login = _interopRequireDefault(require("@/components/auth/login"));
+
+var _dashboard = _interopRequireDefault(require("@/components/dashboard"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 // components
 _vue["default"].use(_vueRouter["default"]);
 
-var listRoute = [{
-  path: '/',
-  active: false,
-  name: 'Dashboard',
-  component: _dashboard["default"],
-  icon: 'mdi-view-dashboard'
+var routes = [{
+  path: '/login',
+  name: 'Login',
+  component: _login["default"],
+  icon: null
 }, {
-  path: null,
-  icon: 'mdi-folder',
-  active: false,
-  name: 'Master',
-  component: null,
-  childs: [{
-    icon: null,
-    name: 'Post',
-    active: false,
-    path: '/post',
-    component: _post["default"]
+  path: '/',
+  name: 'Layout',
+  component: _layouts["default"],
+  icon: null,
+  children: [{
+    path: '/',
+    name: 'Dashboard',
+    component: _dashboard["default"],
+    icon: 'mdi-view-dashboard'
+  }, {
+    path: '/master',
+    icon: 'mdi-folder',
+    name: 'Master',
+    component: _master["default"],
+    children: [{
+      icon: null,
+      name: 'User',
+      path: '/master/user',
+      component: _user["default"]
+    }, {
+      icon: null,
+      name: 'Post',
+      path: '/master/post',
+      component: _post["default"]
+    }]
   }]
-}];
-exports.listRoute = listRoute;
-var routes = listRoute.map(function (v) {
-  return flatten(v);
-});
+}]; // function flatten(item, final = {}) {
+//     if (item['children'] != undefined) {
+//         item['children'].map(value =>
+//             flatten(value, final)
+//         )
+//     } else {
+//         for (let key in item) {
+//             final[key] = item[key]
+//         }
+//     }
+//     return final;
+// }
 
-function flatten(item) {
-  var _final = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  if (item['childs'] != undefined) {
-    item['childs'].map(function (value) {
-      return flatten(value, _final);
-    });
-  } else {
-    for (var key in item) {
-      _final[key] = item[key];
-    }
-  }
-
-  return _final;
-}
-
+exports.routes = routes;
 var router = new _vueRouter["default"]({
   mode: 'history',
   base: process.env.BASE_URL,
