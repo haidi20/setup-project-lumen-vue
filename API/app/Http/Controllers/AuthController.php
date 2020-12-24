@@ -16,15 +16,15 @@ class AuthController extends Controller
     {
         $dateNow = Carbon::now()->setTimezone("Asia/Singapore")->format('Y-m-d H:i:s');
 
-        $token = app('auth')->attempt($request->only('name', 'password'));
+        $token = app('auth')->attempt($request->only('username', 'password'));
         // $insert = $request->only('name', 'password');
 
-        $login = User::where(["name" => $request->name])->first();
+        $login = User::where(["username" => $request->username])->first();
 
         $user = "";
 
         if (app()->make('hash')->check($request->password, $login->password)) {
-            $user = User::where(["name" => $request->name]);
+            $user = User::where(["username" => $request->username]);
             $user->update(['token' => $token]);
             $user = $user->first();
 

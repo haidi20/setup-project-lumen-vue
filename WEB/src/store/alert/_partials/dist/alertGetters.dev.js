@@ -10,6 +10,9 @@ var alertGetters = {
   },
   getMessage: function getMessage(state) {
     return state.message;
+  },
+  getTimer: function getTimer(state) {
+    return state.timer;
   }
 };
 var _default = alertGetters;

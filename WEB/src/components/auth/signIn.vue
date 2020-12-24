@@ -2,6 +2,7 @@
   <v-app id="inspire">
     <v-main>
       <v-container fluid>
+        <Alert />
         <v-layout align-center justify-center class="space-sign-in">
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
@@ -37,7 +38,7 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="success" @click="emailLogin">Login</v-btn>
+                <v-btn color="success" @click="signIn">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -48,8 +49,16 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+
+// components
+import Alert from "@/components/_elements/Alert";
+
 export default {
-  name: "home",
+  name: "SignIn",
+  components: {
+    Alert
+  },
   data() {
     return {
       username: "",
@@ -57,11 +66,27 @@ export default {
     };
   },
   mounted() {
-    
+    const payload = { 
+      alert: true, 
+      message: "Success Login",
+    }
+
+    this.setAlert(payload);
   },
   methods: {
-    emailLogin(){
-      console.log(this.username, this.password);
+    ...mapActions("auth", [
+      "storeDataAuth",
+    ]),
+    ...mapActions("alert", [
+      "setAlert",
+    ]),
+    signIn(){
+      let payload = {
+        username: this.username,
+        password: this.password,
+      }
+
+      this.storeDataAuth(payload);
     }
   }
 };

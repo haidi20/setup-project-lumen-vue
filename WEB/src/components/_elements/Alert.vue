@@ -15,7 +15,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   
   computed: {
-    ...mapGetters("alert", ["getAlert", "getMessage"]),
+    ...mapGetters("alert", ["getAlert", "getMessage", "getTimer"]),
     alert: {
       get() {
         return this.getAlert;
@@ -30,9 +30,12 @@ export default {
   },
   watch: {
     alert: function() {
-      setTimeout(() => {
-        this.setAlert({alert: false});
-      }, 2000);
+      // getTimer apakah mau pakai timer atau tidak. mau di munculkan terus atau tidak 
+      if(this.getTimer) {
+        setTimeout(() => {
+          this.setAlert({alert: false});
+        }, 2000);
+      }
     }
   }
 }
@@ -41,3 +44,6 @@ export default {
 <style>
 
 </style>
+
+// cara menggunakannya
+// dispatch('alert/setAlert', { alert: true, message: payload.messageAlert }, { root: true });
