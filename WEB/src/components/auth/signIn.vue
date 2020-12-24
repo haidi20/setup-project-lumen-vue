@@ -4,7 +4,7 @@
       <v-container fluid>
         <Alert />
         <v-layout align-center justify-center class="space-sign-in">
-          <v-flex xs12 sm8 md4>
+          <v-flex xs12 sm8 md3>
             <v-card class="elevation-12">
               <v-toolbar dark color="success">
                 <v-toolbar-title>Sign In</v-toolbar-title>
@@ -38,18 +38,21 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="success" @click="signIn">Login</v-btn>
+                <v-btn color="success" @click="signIn">
+                  Login
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
         </v-layout>
+        <h3> {{getLogin}} </h3>
       </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 
 // components
 import Alert from "@/components/_elements/Alert";
@@ -61,34 +64,31 @@ export default {
   },
   data() {
     return {
-      username: "",
-      password: ""
+      username: "haidi",
+      password: "samarinda",
+      loading: true,
     };
   },
-  mounted() {
-    const payload = { 
-      alert: true, 
-      message: "Success Login",
-    }
-
-    this.setAlert(payload);
+  computed: {
+    ...mapGetters("auth", [
+      "getLogin",
+    ]),
   },
   methods: {
     ...mapActions("auth", [
-      "storeDataAuth",
-    ]),
-    ...mapActions("alert", [
-      "setAlert",
+      "storeDataAuth", "setLogin"
     ]),
     signIn(){
       let payload = {
-        username: this.username,
-        password: this.password,
+        data: {
+          username: this.username,
+          password: this.password,
+        }
       }
 
       this.storeDataAuth(payload);
-    }
-  }
+    },
+  },
 };
 </script>
 

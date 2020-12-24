@@ -7,8 +7,8 @@ const auth = {
     namespaced: true,
     state: authStates,
     getters: authGetters,
-    mutations: authMutations,
     actions: authActions,
+    mutations: authMutations,
 }
 
 export default auth

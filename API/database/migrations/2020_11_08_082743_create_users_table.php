@@ -15,10 +15,11 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username');
+            $table->string('username', 30);
             $table->string('password');
             // 1 = online | 0 = offline
             $table->boolean('status_login')->default(false);
+            $table->string('token', 500)->nullable();
             $table->timestamps();
         });
     }

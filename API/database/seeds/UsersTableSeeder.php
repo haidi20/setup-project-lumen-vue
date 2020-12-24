@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::insert([
-            'name' => 'haidi',
+            'username' => 'haidi',
             'password' => app('hash')->make('samarinda'),
         ]);
     }

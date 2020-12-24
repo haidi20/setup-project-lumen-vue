@@ -19,8 +19,8 @@ var auth = {
   namespaced: true,
   state: _authStates["default"],
   getters: _authGetters["default"],
-  mutations: _authMutations["default"],
-  actions: _authActions["default"]
+  actions: _authActions["default"],
+  mutations: _authMutations["default"]
 };
 var _default = auth;
 exports["default"] = _default;

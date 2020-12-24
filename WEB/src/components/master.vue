@@ -1,10 +1,10 @@
 <template>
-  <router-view></router-view>
+  <route-view></route-view>
 </template>
 
 <script>
 export default {
-  name: 'master'
+  name: 'Master'
 }
 </script>
 <style>

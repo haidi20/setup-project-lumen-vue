@@ -6,6 +6,10 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
+use Carbon\Carbon;
+
+use App\AuthToken;
+
 class Authenticate
 {
     /**
@@ -38,23 +42,28 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        // if ($this->auth->guard($guard)->guest()) {
-            if ($request->bearerToken()) {
-                $token = $request->bearerToken();
-                $check_token = Participant::where('token', $token)->count();
-                if ($check_token <= 0) {
-                    $res['success'] = false;
-                    $res['message'] = 'Permission not allowed!';
+        $date = Carbon::now()->setTimezone("Asia/Singapore");
+        $dateNow = $date->format('Y-m-d H:i:s');
+        
+        if ($request->bearerToken()) {
+            $token = $request->bearerToken();
+            $check_token = AuthToken::where([
+                ['token', '=' , $token], 
+                ['expired_at', '<=' , $dateNow],
+            ])->first();
 
-                    return response($res);
-                }
-            }else{
+            if ($check_token) {
                 $res['success'] = false;
-                $res['message'] = 'Login please!';
+                $res['message'] = 'Permission not allowed!';
 
                 return response($res);
-            }
-        // }
+            }            
+        }else{
+            $res['success'] = false;
+            $res['message'] = 'Login please!';
+
+            return response($res);
+        }
 
         return $next($request);
     }

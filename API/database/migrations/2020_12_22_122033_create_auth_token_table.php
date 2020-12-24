@@ -16,8 +16,9 @@ class CreateAuthTokenTable extends Migration
         Schema::create('auth_token', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('user_id')->nullable();
-            $table->string('token')->nullable();
+            $table->string('token', 500)->nullable();
             $table->timestamps();
+            $table->dateTime('expired_at');
         });
     }
 
