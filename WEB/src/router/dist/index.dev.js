@@ -17,7 +17,7 @@ var _layouts = _interopRequireDefault(require("@/components/_layouts"));
 
 var _master = _interopRequireDefault(require("@/components/master"));
 
-var _login = _interopRequireDefault(require("@/components/auth/login"));
+var _signIn = _interopRequireDefault(require("@/components/auth/signIn"));
 
 var _dashboard = _interopRequireDefault(require("@/components/dashboard"));
 
@@ -27,9 +27,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 _vue["default"].use(_vueRouter["default"]);
 
 var routes = [{
-  path: '/login',
-  name: 'Login',
-  component: _login["default"],
+  path: '/sign-in',
+  name: 'SignIn',
+  component: _signIn["default"],
   icon: null
 }, {
   path: '/',

@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _alertState = _interopRequireDefault(require("./_partials/alertState"));
+var _alertStates = _interopRequireDefault(require("./_partials/alertStates"));
 
 var _alertGetters = _interopRequireDefault(require("./_partials/alertGetters"));
 
@@ -18,7 +18,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 // partials
 var alert = {
   namespaced: true,
-  state: _alertState["default"],
+  state: _alertStates["default"],
   getters: _alertGetters["default"],
   actions: _alertActions["default"],
   mutations: _alertMutations["default"]

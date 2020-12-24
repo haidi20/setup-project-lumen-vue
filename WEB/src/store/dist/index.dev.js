@@ -9,6 +9,8 @@ var _vue = _interopRequireDefault(require("vue"));
 
 var _vuex = _interopRequireDefault(require("vuex"));
 
+var _auth = _interopRequireDefault(require("./auth"));
+
 var _alert = _interopRequireDefault(require("./alert"));
 
 var _datatable = _interopRequireDefault(require("./datatable"));
@@ -19,6 +21,7 @@ _vue["default"].use(_vuex["default"]);
 
 var _default = new _vuex["default"].Store({
   modules: {
+    auth: _auth["default"],
     alert: _alert["default"],
     datatable: _datatable["default"]
   }

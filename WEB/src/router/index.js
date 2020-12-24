@@ -6,15 +6,15 @@ import Post from '@/components/post'
 import User from '@/components/user'
 import Layout from '@/components/_layouts'
 import Master from '@/components/master'
-import Login from '@/components/auth/login'
+import SignIn from '@/components/auth/signIn'
 import Dashboard from '@/components/dashboard'
 
 Vue.use(VueRouter)
 
 export const routes = [{
-        path: '/login',
-        name: 'Login',
-        component: Login,
+        path: '/sign-in',
+        name: 'SignIn',
+        component: SignIn,
         icon: null
     },
     {

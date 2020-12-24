@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _datatableState = _interopRequireDefault(require("./_partials/datatableState"));
+var _datatableStates = _interopRequireDefault(require("./_partials/datatableStates"));
 
 var _datatableGetters = _interopRequireDefault(require("./_partials/datatableGetters"));
 
@@ -18,7 +18,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 // partials
 var datatable = {
   namespaced: true,
-  state: _datatableState["default"],
+  state: _datatableStates["default"],
   getters: _datatableGetters["default"],
   mutations: _datatableMutations["default"],
   actions: _datatableActions["default"]
