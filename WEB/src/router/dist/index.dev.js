@@ -45,6 +45,7 @@ var routes = [{
     path: '/master',
     icon: 'mdi-folder',
     name: 'Master',
+    active: false,
     component: _master["default"],
     children: [{
       icon: null,

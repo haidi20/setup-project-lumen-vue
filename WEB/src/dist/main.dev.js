@@ -6,7 +6,7 @@ var _vuetify = _interopRequireDefault(require("./plugins/vuetify"));
 
 var _vueAxiosCors = _interopRequireDefault(require("vue-axios-cors"));
 
-var _core = _interopRequireDefault(require("./components/core"));
+var _app = _interopRequireDefault(require("./components/app"));
 
 var _store = _interopRequireDefault(require("./store"));
 
@@ -26,6 +26,6 @@ new _vue["default"]({
   vuetify: _vuetify["default"],
   router: _router["default"],
   render: function render(h) {
-    return h(_core["default"]);
+    return h(_app["default"]);
   }
 }).$mount('#app');

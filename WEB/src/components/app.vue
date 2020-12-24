@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'core'
+  name: 'app'
 }
 </script>
 <style>

@@ -17,6 +17,8 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('password');
+            // 1 = online | 0 = offline
+            $table->boolean('status_login')->default(false);
             $table->timestamps();
         });
     }

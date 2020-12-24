@@ -11,11 +11,13 @@
         <v-navigation-drawer  v-model="drawer" >
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title class="title">
+              <v-list-item-title 
+                style="margin-top: 10px"
+                class="title">
                 Setup Project SPA
               </v-list-item-title>
               <v-list-item-subtitle>
-                <!-- subtext --><br>
+                <!-- subtext -->
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -23,19 +25,16 @@
           <v-divider></v-divider>
           <v-list>
             <v-list-item-group
-              color="primary"
-               
-            >
+              color="primary">
                <v-list-item
                 v-for="item in menus"
-                :key="item.name"
                 :to="item.path"
+                :key="item.name"
                 active-class="highlighted" 
+                @click="closeAllSubMenu"
                            
               >
-                <v-list-item-icon
-                  v-if="item.children == undefined"
-                >
+                <v-list-item-icon>
                   <v-icon>{{ item.icon }}</v-icon>
                 </v-list-item-icon>
                 <v-list-item-content>
@@ -45,16 +44,14 @@
 
             </v-list-item-group>
             <v-list-group
-              v-for="item in menusHaveSubMenu"
+              v-for="item in menuHaveChildren"
               :key="item.name"
               v-model="item.active"
               :prepend-icon="item.icon"
               no-action
             >
-              <template v-slot:activator>
-                <v-list-item-content
-                  v-if="item.children != undefined"
-                >
+              <template v-slot:activator >
+                <v-list-item-content>
                   <v-list-item-title v-text="item.name"></v-list-item-title>
                 </v-list-item-content>
               </template>
@@ -105,12 +102,11 @@ import {routes} from '@/router';
   export default {
     data() {
       return {
+        menus: [],
         right: null,   
         drawer: true,
         closeOnClick: true,
-
-        menus: [],
-        menusHaveSubMenu: [],
+        menuHaveChildren: [],
         
       }
     },
@@ -122,7 +118,7 @@ import {routes} from '@/router';
           if(value.children == undefined) {
             this.menus = [...this.menus, value];
           }else {
-            this.menusHaveSubMenu = [...this.menusHaveSubMenu, value];
+            this.menuHaveChildren = [...this.menuHaveChildren, value];
           }
         });
       });
@@ -134,6 +130,9 @@ import {routes} from '@/router';
           console.log('tidak sama');
           this.selected = index;
         }
+      },
+      closeAllSubMenu() {
+        this.menuHaveChildren.map(item => item.active = false);
       }
     }
   }
