@@ -16,14 +16,13 @@ use \Illuminate\Http\Request;
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
 $router->post('/login', 'AuthController@login');
 
-$router->get('/api/data', function () use ($router) {
-    // return 'keren';
-    return base64_encode(str_random(32)) . PHP_EOL;
+$router->group(['prefix' => '/api', 'middleware' => 'auth'], function () use ($router) {
+    $router->get('/posts',  ['uses' => 'PostController@index']);
+    $router->post('/posts',  ['uses' => 'PostController@store']);
+    $router->put('/posts/{id}',  ['uses' => 'PostController@update']);
+    $router->delete('/posts/{id}',  ['uses' => 'PostController@delete']);
 });
 
-$router->get('/api/posts',  ['uses' => 'PostController@index']);
-$router->post('/api/posts',  ['uses' => 'PostController@store']);
-$router->put('/api/posts/{id}',  ['uses' => 'PostController@update']);
-$router->delete('/api/posts/{id}',  ['uses' => 'PostController@delete']);

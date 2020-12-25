@@ -18,11 +18,7 @@ class AuthController extends Controller
         $dateNow = $date->format('Y-m-d H:i:s');
 
         $token = app('auth')->attempt($request->only('username', 'password'));
-        // $insert = $request->only('name', 'password');
-
         $login = User::where(["username" => $request->username])->first();
-
-        $user = "";
 
         if (app()->make('hash')->check($request->password, $login->password)) {
             $user = User::where(["username" => $request->username]);
@@ -37,21 +33,34 @@ class AuthController extends Controller
             $authToken->token = $user->token;
             $authToken->created_at = $dateNow;
             $authToken->updated_at = $dateNow;
-            $authToken->expired_at = $date->addDays(1);
+            $authToken->expired_at = $date->addMinutes(30);
             $authToken->save();
+
+            if ($token != null) {
+                $token = $token;
+            } else {
+                $token = null;
+            }
+    
+            $data = [
+                "time" => 300,
+                "user" => $user,
+                "token" => $token,
+                "success" => true,
+                "remarks" => "Success Login",
+            ];
+
+            return $this->responseWithSuccess($data);
         }
 
-        if ($token != null) {
-            $token = "bearer " . $token;
-        } else {
-            $token = null;
-        }
+        $data = [
+            "time" => 0,
+            "user" => null,
+            "token" => null,
+            "success" => false,
+            "remarks" => "Username or Password entered is incorrect.",
+        ];
 
-        // return $this->respondWithToken($token);
-        return response()->json([
-            "time" => 300,
-            "user" => $user,
-            "token" => $token,
-        ]);
+        return $this->responseWithError($data);
     }
 }

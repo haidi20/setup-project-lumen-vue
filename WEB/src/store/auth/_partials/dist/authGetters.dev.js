@@ -5,8 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 var authGetters = {
-  getLogin: function getLogin(state) {
-    return state.login;
+  getUser: function getUser(state) {
+    return state.user;
+  },
+  getToken: function getToken(state) {
+    return state.user.token;
   }
 };
 var _default = authGetters;

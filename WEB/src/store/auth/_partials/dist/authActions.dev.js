@@ -7,6 +7,8 @@ exports["default"] = void 0;
 
 var _api = _interopRequireDefault(require("@/api"));
 
+var _router = _interopRequireDefault(require("@/router"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -32,13 +34,20 @@ var authActions = {
             _context.next = 5;
             return regeneratorRuntime.awrap((0, _api["default"])(_objectSpread({}, setupHttp)).then(function (ress) {
               var fetchResponse = ress.data;
-              var payload = {
-                user: fetchResponse.user,
-                token: fetchResponse.token,
-                time: fetchResponse.time
-              };
-              commit('INSERT_AUTH', payload);
-              console.log(state);
+              console.log(ress);
+
+              if (fetchResponse.success) {
+                var _payload = {
+                  user: fetchResponse.user,
+                  token: fetchResponse.token,
+                  time: fetchResponse.time
+                };
+                commit('INSERT_AUTH', _payload);
+
+                _router["default"].push('/');
+              } else {
+                alert(fetchResponse.remarks);
+              }
             }));
 
           case 5:

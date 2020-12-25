@@ -1,4 +1,5 @@
 import http from '@/api'
+import router from '@/router'
 
 const authActions = {
     async storeDataAuth({ commit, state }, payload) {
@@ -12,15 +13,20 @@ const authActions = {
             await http({...setupHttp })
                 .then(ress => {
                     const fetchResponse = ress.data;
-                    const payload = {
-                        user: fetchResponse.user,
-                        token: fetchResponse.token,
-                        time: fetchResponse.time,
+
+                    console.log(ress);
+                    if (fetchResponse.success) {
+                        const payload = {
+                            user: fetchResponse.user,
+                            token: fetchResponse.token,
+                            time: fetchResponse.time,
+                        }
+
+                        commit('INSERT_AUTH', payload);
+                        router.push('/');
+                    } else {
+                        alert(fetchResponse.remarks);
                     }
-
-                    commit('INSERT_AUTH', payload);
-
-                    console.log(state);
                 });
         } catch (error) {
             console.log('error fetch data = ' + error);

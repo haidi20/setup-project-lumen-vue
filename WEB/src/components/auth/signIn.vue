@@ -45,7 +45,6 @@
             </v-card>
           </v-flex>
         </v-layout>
-        <h3> {{getLogin}} </h3>
       </v-container>
     </v-main>
   </v-app>
@@ -69,14 +68,14 @@ export default {
       loading: true,
     };
   },
-  computed: {
-    ...mapGetters("auth", [
-      "getLogin",
-    ]),
-  },
+  // computed: {
+  //   ...mapGetters("auth", [
+     
+  //   ]),
+  // },
   methods: {
     ...mapActions("auth", [
-      "storeDataAuth", "setLogin"
+      "storeDataAuth",
     ]),
     signIn(){
       let payload = {
