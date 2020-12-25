@@ -20,7 +20,7 @@ class PostController extends Controller
 
             return $this->responseWithSuccess($posts);
         } catch (\Throwable $th) {
-            return $th;
+            return $this->responseWithError($th, "Sorry, can not access data");
         }
     }
 
@@ -36,9 +36,9 @@ class PostController extends Controller
             $post->save();
 
             // return "Data Berhasil Dikirim";
-            return $post;
+            return $this->responseWithSuccess($post);
         } catch (\Throwable $th) {
-            return $th;
+            return $this->responseWithError($th, "Sorry, can not Send Data");
         }
     }
 
@@ -52,9 +52,9 @@ class PostController extends Controller
             $post->save();
 
             // return "Data Berhasil Dikirim";
-            return $post;
+            return $this->responseWithSuccess($post);
         } catch (\Throwable $th) {
-            return $th;
+            return $this->responseWithError($th, "Sorry, can not Update Data");
         }
     }
 

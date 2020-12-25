@@ -1,7 +1,7 @@
 import http from '@/api'
 
 const datatableActions = {
-    async fetchData({ commit, state, getters, rootState }) {
+    async fetchData({ commit, state, rootState }) {
 
         const setupHttp = {
             url: `/api${state.dataLink}`,
@@ -32,7 +32,7 @@ const datatableActions = {
                         if (state.firstVisitPage) {
                             const pageSizes = resultPageSizes(state, fetchData);
 
-                            commit('INSERT_PAGE_SIZES', { pageSizes: pageSizes });
+                            commit('INSERT_PAGE_SIZES', { pageSizes });
                             commit('FALSE_FIRST_VISIT_PAGE');
                         }
                     }
@@ -51,12 +51,15 @@ const datatableActions = {
             data: object | {title: 'judul', content: 'isinya'}
         }
     */
-    async methodAction({ commit, dispatch, state }, payload) {
+    async methodAction({ commit, dispatch, state, rootState }, payload) {
         try {
             const setupHttp = {
                 url: '/api' + state.dataLink + payload.url,
                 data: payload.data,
                 method: payload.method,
+                headers: {
+                    Authorization: "Bearer " + rootState.auth.token,
+                },
             }
 
             await http({...setupHttp })

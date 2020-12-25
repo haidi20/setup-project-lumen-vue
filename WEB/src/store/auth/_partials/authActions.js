@@ -23,7 +23,7 @@ const authActions = {
                         }
 
                         commit('INSERT_AUTH', payload);
-                        router.push('/');
+                        router.push('/').catch(() => {});
                     } else {
                         alert(fetchData.remarks);
                     }

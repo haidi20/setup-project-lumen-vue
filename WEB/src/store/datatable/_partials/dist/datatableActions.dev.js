@@ -25,12 +25,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var datatableActions = {
   fetchData: function fetchData(_ref) {
-    var commit, state, getters, rootState, setupHttp;
+    var commit, state, rootState, setupHttp;
     return regeneratorRuntime.async(function fetchData$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            commit = _ref.commit, state = _ref.state, getters = _ref.getters, rootState = _ref.rootState;
+            commit = _ref.commit, state = _ref.state, rootState = _ref.rootState;
             setupHttp = {
               url: "/api".concat(state.dataLink),
               method: 'get',
@@ -93,17 +93,20 @@ var datatableActions = {
       }
   */
   methodAction: function methodAction(_ref2, payload) {
-    var commit, dispatch, state, setupHttp;
+    var commit, dispatch, state, rootState, setupHttp;
     return regeneratorRuntime.async(function methodAction$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            commit = _ref2.commit, dispatch = _ref2.dispatch, state = _ref2.state;
+            commit = _ref2.commit, dispatch = _ref2.dispatch, state = _ref2.state, rootState = _ref2.rootState;
             _context2.prev = 1;
             setupHttp = {
               url: '/api' + state.dataLink + payload.url,
               data: payload.data,
-              method: payload.method
+              method: payload.method,
+              headers: {
+                Authorization: "Bearer " + rootState.auth.token
+              }
             };
             _context2.next = 5;
             return regeneratorRuntime.awrap((0, _api["default"])(_objectSpread({}, setupHttp)).then(function (response) {

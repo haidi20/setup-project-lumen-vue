@@ -44,7 +44,7 @@ var authActions = {
                 };
                 commit('INSERT_AUTH', _payload);
 
-                _router["default"].push('/');
+                _router["default"].push('/')["catch"](function () {});
               } else {
                 alert(fetchData.remarks);
               }

@@ -14,8 +14,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var instance = _axios["default"].create({
   baseURL: "http://localhost:8000",
   headers: {
-    "Content-type": "application/json" // "Authorization": `Bearer ${localStorage.getItem('token')}`,
-
+    "Content-type": "application/json"
   }
 }); // Add a response interceptor
 
