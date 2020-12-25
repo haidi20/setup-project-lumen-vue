@@ -64,9 +64,9 @@ class PostController extends Controller
             $post = Post::find($id);
             $post->delete();
 
-            return "Data Berhasil Dihapus";
+            return $this->responseWithSuccess(null, "Data Berhasil Dihapus");
         } catch (\Throwable $th) {
-            return $th;
+            return $this->responseWithError($th, "Sorry, can not Delete Data");
         }
     }
 }
