@@ -25,34 +25,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var datatableActions = {
   fetchData: function fetchData(_ref) {
-    var commit, state, params;
+    var commit, state, getters, rootState, setupHttp;
     return regeneratorRuntime.async(function fetchData$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            commit = _ref.commit, state = _ref.state;
-            params = {
-              page: state.page,
-              search: state.search,
-              per_page: state.pageSize
+            commit = _ref.commit, state = _ref.state, getters = _ref.getters, rootState = _ref.rootState;
+            setupHttp = {
+              url: "/api".concat(state.dataLink),
+              method: 'get',
+              headers: {
+                Authorization: "Bearer " + rootState.auth.token
+              },
+              params: {
+                page: state.page,
+                search: state.search,
+                per_page: state.pageSize
+              }
             };
             commit('NULL_DATA');
             commit('LOADING_TRUE');
             _context.prev = 4;
             _context.next = 7;
-            return regeneratorRuntime.awrap(_api["default"].get("/api".concat(state.dataLink), {
-              params: params
-            }).then(function (ress) {
+            return regeneratorRuntime.awrap((0, _api["default"])(_objectSpread({}, setupHttp)).then(function (ress) {
               var fetchResponse = ress.data;
-              commit('INSERT_DATA', fetchResponse);
-              commit('LOADING_FALSE');
+              var fetchData = fetchResponse.data;
 
-              if (state.firstVisitPage) {
-                var pageSizes = resultPageSizes(state, fetchResponse);
-                commit('INSERT_PAGE_SIZES', {
-                  pageSizes: pageSizes
-                });
-                commit('FALSE_FIRST_VISIT_PAGE');
+              if (fetchResponse.success) {
+                commit('INSERT_DATA', fetchData);
+                commit('LOADING_FALSE');
+
+                if (state.firstVisitPage) {
+                  var pageSizes = resultPageSizes(state, fetchData);
+                  commit('INSERT_PAGE_SIZES', {
+                    pageSizes: pageSizes
+                  });
+                  commit('FALSE_FIRST_VISIT_PAGE');
+                }
               }
             }));
 

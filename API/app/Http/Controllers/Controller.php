@@ -15,19 +15,21 @@ class Controller extends BaseController
         ], 200);
     }
 
-    protected function responseWithSuccess($data)
+    protected function responseWithSuccess($data, $remarks = '')
     {
         return response()->json([
-            "status" => 200,
             "data" => $data,
-        ], 200);
+            "success" => true,
+            "remarks" => $remarks,
+        ]);
     }
 
-    protected function responseWithError($data)
+    protected function responseWithError($data, $remarks = '')
     {
         return response()->json([
-            "status" => 500,
             "data" => $data,
-        ], 500);
+            "success" => false,
+            "remarks" => $remarks,
+        ]);
     }
 }

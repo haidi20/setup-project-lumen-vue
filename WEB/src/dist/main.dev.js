@@ -16,9 +16,7 @@ require("vuetify/dist/vuetify.min.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-// import Vuetify from 'vuetify/lib/framework'
-_vue["default"].use(_vueAxiosCors["default"]); // Vue.use(Vuetify);
-
+_vue["default"].use(_vueAxiosCors["default"]);
 
 _vue["default"].config.productionTip = false;
 new _vue["default"]({

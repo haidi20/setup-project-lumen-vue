@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var authStates = {
   user: {},
-  token: '',
+  token: localStorage.getItem('token') || '',
   time: '',
   loading: false
 };

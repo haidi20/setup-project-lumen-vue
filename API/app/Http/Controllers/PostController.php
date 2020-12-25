@@ -18,7 +18,7 @@ class PostController extends Controller
                 ->orderBy('date', 'desc')
                 ->paginate($perPage);
 
-            return $posts;
+            return $this->responseWithSuccess($posts);
         } catch (\Throwable $th) {
             return $th;
         }

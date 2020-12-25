@@ -42,14 +42,12 @@ class AuthController extends Controller
             $data = [
                 "time" => 300,
                 "user" => $user,
-                "dataToken" => $authToken,
                 "token" => $token,
                 "success" => true,
-                "remarks" => "Success Login",
             ];
 
-            return $data;
-            // return $this->responseWithSuccess($data);
+            // return $data;
+            return $this->responseWithSuccess($data, "Success Login.");
         }
 
         $data = [
@@ -57,10 +55,9 @@ class AuthController extends Controller
             "user" => null,
             "token" => null,
             "success" => false,
-            "remarks" => "Username or Password entered is incorrect.",
         ];
 
         return $data;
-        // return $this->responseWithError($data);
+        return $this->responseWithError($data, "Username or Password entered is incorrect.");
     }
 }

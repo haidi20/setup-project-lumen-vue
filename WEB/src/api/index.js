@@ -5,7 +5,7 @@ const instance = axios.create({
     baseURL: "http://localhost:8000",
     headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${localStorage.token}`,
+        // "Authorization": `Bearer ${localStorage.getItem('token')}`,
     }
 });
 
@@ -13,11 +13,10 @@ const instance = axios.create({
 instance.interceptors.response.use(function(responses) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with responses data
-
     const response = responses.data;
     if (!response.success) {
         localStorage.token = null;
-        router.push('/sign-in');
+        router.push('/sign-in').catch(() => {});
     }
 
     return responses;

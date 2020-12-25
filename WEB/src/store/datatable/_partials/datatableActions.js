@@ -1,27 +1,40 @@
 import http from '@/api'
 
 const datatableActions = {
-    async fetchData({ commit, state }) {
-        const params = {
-            page: state.page,
-            search: state.search,
-            per_page: state.pageSize,
+    async fetchData({ commit, state, getters, rootState }) {
+
+        const setupHttp = {
+            url: `/api${state.dataLink}`,
+            method: 'get',
+            headers: {
+                Authorization: "Bearer " + rootState.auth.token,
+            },
+            params: {
+                page: state.page,
+                search: state.search,
+                per_page: state.pageSize,
+            }
         }
 
         commit('NULL_DATA');
         commit('LOADING_TRUE');
         try {
-            await http.get(`/api${state.dataLink}`, { params })
+            // await http.get(`/api${state.dataLink}`, { params })
+            await http({...setupHttp })
                 .then(ress => {
-                    let fetchResponse = ress.data;
-                    commit('INSERT_DATA', fetchResponse);
-                    commit('LOADING_FALSE');
+                    const fetchResponse = ress.data;
+                    const fetchData = fetchResponse.data;
 
-                    if (state.firstVisitPage) {
-                        const pageSizes = resultPageSizes(state, fetchResponse);
+                    if (fetchResponse.success) {
+                        commit('INSERT_DATA', fetchData);
+                        commit('LOADING_FALSE');
 
-                        commit('INSERT_PAGE_SIZES', { pageSizes: pageSizes });
-                        commit('FALSE_FIRST_VISIT_PAGE');
+                        if (state.firstVisitPage) {
+                            const pageSizes = resultPageSizes(state, fetchData);
+
+                            commit('INSERT_PAGE_SIZES', { pageSizes: pageSizes });
+                            commit('FALSE_FIRST_VISIT_PAGE');
+                        }
                     }
                 });
         } catch (error) {

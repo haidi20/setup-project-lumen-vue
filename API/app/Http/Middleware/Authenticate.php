@@ -47,7 +47,7 @@ class Authenticate
         
         if ($request->bearerToken()) {
             $token = $request->bearerToken();
-            $checkToken = AuthToken::where('token', '=' , $token)->count();
+            $checkToken = AuthToken::where('token', $token)->count();
             $checkExpiredToken = AuthToken::where(
                 [['token', '=' , $token],
                 ['expired_at', '>' , $dateNow]]
@@ -57,18 +57,17 @@ class Authenticate
                 $data = [
                     "success" => false,
                     "data" => "invalid",
-                    "coba" => $checkExpiredToken,
+                    "token" => $token,
                     "remarks" => 'Sorry, Your Token not Registered.',
                 ];
 
                 return $data;
             } 
-            
+
             if($checkExpiredToken == 0){
                 $data = [
                     "success" => false,
                     "data" => "expired",
-                    "coba" => $checkExpiredToken,
                     "remarks" => 'Sorry, Your Session has Expired.',
                 ];
 
@@ -76,13 +75,13 @@ class Authenticate
                 // return response($data);
             }           
         }else{
-            $response = [
+            $data = [
                 "success" => false,
                 "data" => "permission",
                 "remarks" => 'Login Please!.',
             ];
 
-            return $response;
+            return $data;
             // return response($response);
         }
 

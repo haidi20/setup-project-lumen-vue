@@ -1,6 +1,6 @@
 const authStates = {
     user: {},
-    token: '',
+    token: localStorage.getItem('token') || '',
     time: '',
     loading: false,
 }

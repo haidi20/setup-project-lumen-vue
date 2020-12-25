@@ -13,18 +13,19 @@ const authActions = {
             await http({...setupHttp })
                 .then(ress => {
                     const fetchResponse = ress.data;
+                    const fetchData = fetchResponse.data;
 
                     if (fetchResponse.success) {
                         const payload = {
-                            user: fetchResponse.user,
-                            time: fetchResponse.time,
-                            token: fetchResponse.token,
+                            user: fetchData.user,
+                            time: fetchData.time,
+                            token: fetchData.token,
                         }
 
                         commit('INSERT_AUTH', payload);
                         router.push('/');
                     } else {
-                        alert(fetchResponse.remarks);
+                        alert(fetchData.remarks);
                     }
                 });
         } catch (error) {

@@ -14,8 +14,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var instance = _axios["default"].create({
   baseURL: "http://localhost:8000",
   headers: {
-    "Content-type": "application/json",
-    "Authorization": "Bearer ".concat(localStorage.token)
+    "Content-type": "application/json" // "Authorization": `Bearer ${localStorage.getItem('token')}`,
+
   }
 }); // Add a response interceptor
 
@@ -28,7 +28,7 @@ instance.interceptors.response.use(function (responses) {
   if (!response.success) {
     localStorage.token = null;
 
-    _router["default"].push('/sign-in');
+    _router["default"].push('/sign-in')["catch"](function () {});
   }
 
   return responses;

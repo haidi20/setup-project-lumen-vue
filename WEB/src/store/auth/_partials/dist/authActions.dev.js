@@ -34,18 +34,19 @@ var authActions = {
             _context.next = 5;
             return regeneratorRuntime.awrap((0, _api["default"])(_objectSpread({}, setupHttp)).then(function (ress) {
               var fetchResponse = ress.data;
+              var fetchData = fetchResponse.data;
 
               if (fetchResponse.success) {
                 var _payload = {
-                  user: fetchResponse.user,
-                  time: fetchResponse.time,
-                  token: fetchResponse.token
+                  user: fetchData.user,
+                  time: fetchData.time,
+                  token: fetchData.token
                 };
                 commit('INSERT_AUTH', _payload);
 
                 _router["default"].push('/');
               } else {
-                alert(fetchResponse.remarks);
+                alert(fetchData.remarks);
               }
             }));
 
