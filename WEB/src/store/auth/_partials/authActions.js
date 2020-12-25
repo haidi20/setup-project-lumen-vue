@@ -2,7 +2,7 @@ import http from '@/api'
 import router from '@/router'
 
 const authActions = {
-    async storeDataAuth({ commit, state }, payload) {
+    async storeDataAuth({ commit }, payload) {
         let setupHttp = {
             url: '/login',
             method: 'post',
@@ -14,11 +14,11 @@ const authActions = {
                 .then(ress => {
                     const fetchResponse = ress.data;
 
-                    if (!fetchResponse.success) {
+                    if (fetchResponse.success) {
                         const payload = {
                             user: fetchResponse.user,
-                            token: fetchResponse.token,
                             time: fetchResponse.time,
+                            token: fetchResponse.token,
                         }
 
                         commit('INSERT_AUTH', payload);

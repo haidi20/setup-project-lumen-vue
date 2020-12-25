@@ -19,12 +19,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var authActions = {
   storeDataAuth: function storeDataAuth(_ref, payload) {
-    var commit, state, setupHttp;
+    var commit, setupHttp;
     return regeneratorRuntime.async(function storeDataAuth$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            commit = _ref.commit, state = _ref.state;
+            commit = _ref.commit;
             setupHttp = {
               url: '/login',
               method: 'post',
@@ -35,11 +35,11 @@ var authActions = {
             return regeneratorRuntime.awrap((0, _api["default"])(_objectSpread({}, setupHttp)).then(function (ress) {
               var fetchResponse = ress.data;
 
-              if (!fetchResponse.success) {
+              if (fetchResponse.success) {
                 var _payload = {
                   user: fetchResponse.user,
-                  token: fetchResponse.token,
-                  time: fetchResponse.time
+                  time: fetchResponse.time,
+                  token: fetchResponse.token
                 };
                 commit('INSERT_AUTH', _payload);
 

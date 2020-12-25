@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
         
         if ($this->app->environment() == 'local') {
             $this->app->register('Wn\Generators\CommandsServiceProvider');
+            date_default_timezone_set('Asia/Singapore');
         }
     }
 }

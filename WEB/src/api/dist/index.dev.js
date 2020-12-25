@@ -25,7 +25,7 @@ instance.interceptors.response.use(function (responses) {
   // Do something with responses data
   var response = responses.data;
 
-  if (!response.success && (response.data == "expired" || response.data == "permission")) {
+  if (!response.success) {
     localStorage.token = null;
 
     _router["default"].push('/sign-in');

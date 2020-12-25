@@ -14,8 +14,7 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $date = Carbon::now()->setTimezone("Asia/Singapore");
-        $dateNow = $date->format('Y-m-d H:i:s');
+        $date = Carbon::now();
 
         $token = app('auth')->attempt($request->only('username', 'password'));
         $login = User::where(["username" => $request->username])->first();
@@ -31,9 +30,7 @@ class AuthController extends Controller
             $authToken = new AuthToken();
             $authToken->user_id = $user->pid;
             $authToken->token = $user->token;
-            $authToken->created_at = $dateNow;
-            $authToken->updated_at = $dateNow;
-            $authToken->expired_at = $date->addMinutes(10);
+            $authToken->expired_at = $date->addMinutes(2);
             $authToken->save();
 
             if ($token != null) {
@@ -45,6 +42,7 @@ class AuthController extends Controller
             $data = [
                 "time" => 300,
                 "user" => $user,
+                "dataToken" => $authToken,
                 "token" => $token,
                 "success" => true,
                 "remarks" => "Success Login",
