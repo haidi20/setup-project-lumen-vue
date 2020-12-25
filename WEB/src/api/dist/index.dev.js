@@ -23,7 +23,6 @@ var instance = _axios["default"].create({
 instance.interceptors.response.use(function (responses) {
   // Any status code that lie within the range of 2xx cause this function to trigger
   // Do something with responses data
-  console.log(responses);
   var response = responses.data;
 
   if (!response.success && (response.data == "expired" || response.data == "permission")) {

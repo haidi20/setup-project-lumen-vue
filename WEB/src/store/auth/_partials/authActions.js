@@ -14,8 +14,7 @@ const authActions = {
                 .then(ress => {
                     const fetchResponse = ress.data;
 
-                    console.log(ress);
-                    if (fetchResponse.success) {
+                    if (!fetchResponse.success) {
                         const payload = {
                             user: fetchResponse.user,
                             token: fetchResponse.token,

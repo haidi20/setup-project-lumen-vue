@@ -33,7 +33,7 @@ class AuthController extends Controller
             $authToken->token = $user->token;
             $authToken->created_at = $dateNow;
             $authToken->updated_at = $dateNow;
-            $authToken->expired_at = $date->addMinutes(30);
+            $authToken->expired_at = $date->addMinutes(10);
             $authToken->save();
 
             if ($token != null) {
@@ -50,7 +50,8 @@ class AuthController extends Controller
                 "remarks" => "Success Login",
             ];
 
-            return $this->responseWithSuccess($data);
+            return $data;
+            // return $this->responseWithSuccess($data);
         }
 
         $data = [
@@ -61,6 +62,7 @@ class AuthController extends Controller
             "remarks" => "Username or Password entered is incorrect.",
         ];
 
-        return $this->responseWithError($data);
+        return $data;
+        // return $this->responseWithError($data);
     }
 }

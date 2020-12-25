@@ -34,9 +34,8 @@ var authActions = {
             _context.next = 5;
             return regeneratorRuntime.awrap((0, _api["default"])(_objectSpread({}, setupHttp)).then(function (ress) {
               var fetchResponse = ress.data;
-              console.log(ress);
 
-              if (fetchResponse.success) {
+              if (!fetchResponse.success) {
                 var _payload = {
                   user: fetchResponse.user,
                   token: fetchResponse.token,
