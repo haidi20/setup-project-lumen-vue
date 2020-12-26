@@ -43,7 +43,10 @@ var routes = [{
     path: '/',
     name: 'Dashboard',
     component: _dashboard["default"],
-    icon: 'mdi-view-dashboard'
+    icon: 'mdi-view-dashboard',
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/master',
     icon: 'mdi-folder',
@@ -55,12 +58,17 @@ var routes = [{
       name: 'User',
       path: '/master/user',
       component: _user["default"],
-      beforeEnter: _authMiddleware["default"]
+      meta: {
+        requiresAuth: true
+      }
     }, {
       icon: null,
       name: 'Post',
       path: '/master/post',
-      component: _post["default"]
+      component: _post["default"],
+      meta: {
+        requiresAuth: true
+      }
     }]
   }]
 }];
@@ -70,5 +78,6 @@ var router = new _vueRouter["default"]({
   base: process.env.BASE_URL,
   routes: routes
 });
+router.beforeEach(_authMiddleware["default"]);
 var _default = router;
 exports["default"] = _default;

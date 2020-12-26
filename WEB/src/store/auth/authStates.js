@@ -1,13 +1,13 @@
 export const initialState = {
-    token: '',
-    time: '',
+    token: null,
+    time: null,
     loading: false,
     user: {
         id: 0,
-        token: '',
-        username: '',
-        updated_at: '',
-        created_at: '',
+        token: null,
+        username: null,
+        updated_at: null,
+        created_at: null,
         status_login: false,
     },
 }

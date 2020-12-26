@@ -12,15 +12,15 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var initialState = {
-  token: '',
-  time: '',
+  token: null,
+  time: null,
   loading: false,
   user: {
     id: 0,
-    token: '',
-    username: '',
-    updated_at: '',
-    created_at: '',
+    token: null,
+    username: null,
+    updated_at: null,
+    created_at: null,
     status_login: false
   }
 };

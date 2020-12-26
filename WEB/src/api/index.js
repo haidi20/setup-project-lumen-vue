@@ -17,8 +17,6 @@ instance.interceptors.response.use(function(responses) {
         router.push('/sign-in').catch(() => {});
     }
 
-    console.log(responses);
-
     return responses;
 }, function(error) {
     return Promise.reject(error);

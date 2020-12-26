@@ -30,7 +30,6 @@ instance.interceptors.response.use(function (responses) {
     _router["default"].push('/sign-in')["catch"](function () {});
   }
 
-  console.log(responses);
   return responses;
 }, function (error) {
   return Promise.reject(error);

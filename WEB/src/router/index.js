@@ -18,7 +18,7 @@ export const routes = [{
         path: '/sign-in',
         name: 'SignIn',
         component: SignIn,
-        icon: null
+        icon: null,
     },
     {
         path: '/',
@@ -29,7 +29,10 @@ export const routes = [{
                 path: '/',
                 name: 'Dashboard',
                 component: Dashboard,
-                icon: 'mdi-view-dashboard'
+                icon: 'mdi-view-dashboard',
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 path: '/master',
@@ -42,13 +45,18 @@ export const routes = [{
                         name: 'User',
                         path: '/master/user',
                         component: User,
-                        beforeEnter: auth,
+                        meta: {
+                            requiresAuth: true
+                        }
                     },
                     {
                         icon: null,
                         name: 'Post',
                         path: '/master/post',
                         component: Post,
+                        meta: {
+                            requiresAuth: true
+                        }
                     }
                 ]
             },
@@ -60,6 +68,8 @@ const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
     routes
-})
+});
+
+router.beforeEach(auth);
 
 export default router
