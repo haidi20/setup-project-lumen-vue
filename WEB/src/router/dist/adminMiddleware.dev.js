@@ -4,9 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var alertState = {
-  message: '',
-  alert: false
+
+var _default = function _default(to, from, next) {
+  console.log(to.name);
+  next();
 };
-var _default = alertState;
+
 exports["default"] = _default;

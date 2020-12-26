@@ -1,7 +1,7 @@
-import authStates from './_partials/authStates';
-import authGetters from './_partials/authGetters';
-import authActions from './_partials/authActions';
-import authMutations from './_partials/authMutations';
+import authStates from './authStates';
+import authGetters from './authGetters';
+import authActions from './authActions';
+import authMutations from './authMutations';
 
 const auth = {
     namespaced: true,

@@ -1,5 +1,6 @@
 import axios from "axios";
 import router from '@/router';
+import store from '@/store';
 
 const instance = axios.create({
     baseURL: "http://localhost:8000",
@@ -10,19 +11,30 @@ const instance = axios.create({
 
 // Add a response interceptor
 instance.interceptors.response.use(function(responses) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with responses data
     const response = responses.data;
     if (!response.success) {
-        localStorage.token = null;
+        deleteAllDataAuth();
         router.push('/sign-in').catch(() => {});
     }
 
+    console.log(responses);
+
     return responses;
 }, function(error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
     return Promise.reject(error);
 });
+
+function deleteAllDataAuth() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+
+    store.dispatch('auth/setNullState');
+}
 
 export default instance;

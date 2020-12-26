@@ -1,8 +1,8 @@
 // partials
-import datatableStates from './_partials/datatableStates'
-import datatableGetters from './_partials/datatableGetters'
-import datatableMutations from './_partials/datatableMutations'
-import datatableActions from './_partials/datatableActions'
+import datatableStates from './datatableStates'
+import datatableGetters from './datatableGetters'
+import datatableMutations from './datatableMutations'
+import datatableActions from './datatableActions'
 
 const datatable = {
     namespaced: true,

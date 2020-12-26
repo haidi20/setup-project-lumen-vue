@@ -1,8 +1,8 @@
 // partials
-import alertStates from './_partials/alertStates'
-import alertGetters from './_partials/alertGetters'
-import alertMutations from './_partials/alertMutations'
-import alertActions from './_partials/alertActions'
+import alertStates from './alertStates'
+import alertGetters from './alertGetters'
+import alertMutations from './alertMutations'
+import alertActions from './alertActions'
 
 const alert = {
     namespaced: true,

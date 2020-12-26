@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _authStates = _interopRequireDefault(require("./_partials/authStates"));
+var _authStates = _interopRequireDefault(require("./authStates"));
 
-var _authGetters = _interopRequireDefault(require("./_partials/authGetters"));
+var _authGetters = _interopRequireDefault(require("./authGetters"));
 
-var _authActions = _interopRequireDefault(require("./_partials/authActions"));
+var _authActions = _interopRequireDefault(require("./authActions"));
 
-var _authMutations = _interopRequireDefault(require("./_partials/authMutations"));
+var _authMutations = _interopRequireDefault(require("./authMutations"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 

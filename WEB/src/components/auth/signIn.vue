@@ -68,11 +68,11 @@ export default {
       loading: true,
     };
   },
-  // computed: {
-  //   ...mapGetters("auth", [
-     
-  //   ]),
-  // },
+  computed: {
+    ...mapGetters("auth", [
+     "getUser"
+    ]),
+  },
   methods: {
     ...mapActions("auth", [
       "storeDataAuth",

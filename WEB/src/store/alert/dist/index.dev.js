@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _alertStates = _interopRequireDefault(require("./_partials/alertStates"));
+var _alertStates = _interopRequireDefault(require("./alertStates"));
 
-var _alertGetters = _interopRequireDefault(require("./_partials/alertGetters"));
+var _alertGetters = _interopRequireDefault(require("./alertGetters"));
 
-var _alertMutations = _interopRequireDefault(require("./_partials/alertMutations"));
+var _alertMutations = _interopRequireDefault(require("./alertMutations"));
 
-var _alertActions = _interopRequireDefault(require("./_partials/alertActions"));
+var _alertActions = _interopRequireDefault(require("./alertActions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 

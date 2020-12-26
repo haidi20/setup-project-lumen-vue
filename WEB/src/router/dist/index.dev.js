@@ -21,9 +21,12 @@ var _signIn = _interopRequireDefault(require("@/components/auth/signIn"));
 
 var _dashboard = _interopRequireDefault(require("@/components/dashboard"));
 
+var _authMiddleware = _interopRequireDefault(require("./authMiddleware"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 // components
+// middleware
 _vue["default"].use(_vueRouter["default"]);
 
 var routes = [{
@@ -51,7 +54,8 @@ var routes = [{
       icon: null,
       name: 'User',
       path: '/master/user',
-      component: _user["default"]
+      component: _user["default"],
+      beforeEnter: _authMiddleware["default"]
     }, {
       icon: null,
       name: 'Post',
@@ -59,19 +63,7 @@ var routes = [{
       component: _post["default"]
     }]
   }]
-}]; // function flatten(item, final = {}) {
-//     if (item['children'] != undefined) {
-//         item['children'].map(value =>
-//             flatten(value, final)
-//         )
-//     } else {
-//         for (let key in item) {
-//             final[key] = item[key]
-//         }
-//     }
-//     return final;
-// }
-
+}];
 exports.routes = routes;
 var router = new _vueRouter["default"]({
   mode: 'history',

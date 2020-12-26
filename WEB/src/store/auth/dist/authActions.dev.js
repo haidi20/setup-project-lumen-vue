@@ -66,6 +66,10 @@ var authActions = {
         }
       }
     }, null, null, [[2, 7]]);
+  },
+  setNullState: function setNullState(_ref2) {
+    var commit = _ref2.commit;
+    commit('SET_NULL_STATE');
   }
 };
 var _default = authActions;

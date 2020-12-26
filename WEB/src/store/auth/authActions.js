@@ -33,6 +33,9 @@ const authActions = {
             return (null);
         }
     },
+    setNullState({ commit }) {
+        commit('SET_NULL_STATE');
+    }
 }
 
 export default authActions;

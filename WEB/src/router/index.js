@@ -9,6 +9,9 @@ import Master from '@/components/master'
 import SignIn from '@/components/auth/signIn'
 import Dashboard from '@/components/dashboard'
 
+// middleware
+import auth from './authMiddleware'
+
 Vue.use(VueRouter)
 
 export const routes = [{
@@ -39,6 +42,7 @@ export const routes = [{
                         name: 'User',
                         path: '/master/user',
                         component: User,
+                        beforeEnter: auth,
                     },
                     {
                         icon: null,
@@ -51,20 +55,6 @@ export const routes = [{
         ]
     },
 ];
-
-// function flatten(item, final = {}) {
-//     if (item['children'] != undefined) {
-//         item['children'].map(value =>
-//             flatten(value, final)
-//         )
-//     } else {
-//         for (let key in item) {
-//             final[key] = item[key]
-//         }
-//     }
-
-//     return final;
-// }
 
 const router = new VueRouter({
     mode: 'history',
