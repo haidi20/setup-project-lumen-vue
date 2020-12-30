@@ -19,10 +19,15 @@ $router->get('/', function () use ($router) {
 
 $router->post('/login', 'AuthController@login');
 
+$router->get('/buy',  'MidtransController@index');
+$router->post('/notification',  'MidtransController@notification');
+$router->get('/completed',  'MidtransController@completed');
+$router->get('/unfinish',  'MidtransController@unfinish');
+$router->get('/failed',  'MidtransController@failed');
+
 $router->group(['prefix' => '/api', 'middleware' => 'auth'], function () use ($router) {
     $router->get('/posts',  ['uses' => 'PostController@index']);
     $router->post('/posts',  ['uses' => 'PostController@store']);
     $router->put('/posts/{id}',  ['uses' => 'PostController@update']);
     $router->delete('/posts/{id}',  ['uses' => 'PostController@delete']);
 });
-

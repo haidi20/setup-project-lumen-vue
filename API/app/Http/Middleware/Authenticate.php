@@ -1,13 +1,14 @@
 <?php
+
 namespace App\Http\Middleware;
 
-use App\Models\Participant;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
 use Carbon\Carbon;
 
+use App\User;
 use App\AuthToken;
 
 class Authenticate
@@ -44,16 +45,18 @@ class Authenticate
     {
         $date = Carbon::now()->setTimezone("Asia/Singapore");
         $dateNow = $date->format('Y-m-d H:i:s');
-        
+
         if ($request->bearerToken()) {
             $token = $request->bearerToken();
             $checkToken = AuthToken::where('token', $token)->count();
             $checkExpiredToken = AuthToken::where(
-                [['token', '=' , $token],
-                ['expired_at', '>' , $dateNow]]
+                [
+                    ['token', '=', $token],
+                    ['expired_at', '>', $dateNow]
+                ]
             )->count();
 
-            if($checkToken == 0) {
+            if ($checkToken == 0) {
                 $data = [
                     "success" => false,
                     "data" => "invalid",
@@ -62,9 +65,14 @@ class Authenticate
                 ];
 
                 return $data;
-            } 
+            }
 
-            if($checkExpiredToken == 0){
+            if ($checkExpiredToken == 0) {
+                User::where("token", $token)
+                    ->update([
+                        "status_login" => false,
+                    ]);
+
                 $data = [
                     "success" => false,
                     "data" => "expired",
@@ -73,8 +81,8 @@ class Authenticate
 
                 return $data;
                 // return response($data);
-            }           
-        }else{
+            }
+        } else {
             $data = [
                 "success" => false,
                 "data" => "permission",
