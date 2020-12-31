@@ -19,6 +19,8 @@ var _master = _interopRequireDefault(require("@/components/master"));
 
 var _signIn = _interopRequireDefault(require("@/components/auth/signIn"));
 
+var _success = _interopRequireDefault(require("@/components/success"));
+
 var _dashboard = _interopRequireDefault(require("@/components/dashboard"));
 
 var _authMiddleware = _interopRequireDefault(require("./authMiddleware"));
@@ -33,6 +35,11 @@ var routes = [{
   path: '/sign-in',
   name: 'SignIn',
   component: _signIn["default"],
+  icon: null
+}, {
+  path: '/success',
+  name: 'Success',
+  component: _success["default"],
   icon: null
 }, {
   path: '/',

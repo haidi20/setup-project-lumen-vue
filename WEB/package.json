@@ -12,6 +12,8 @@
     "@vue/test-utils": "^1.1.2",
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
+    "firebase": "^8.2.1",
+    "firebaseui": "^4.7.1",
     "idle-vue": "^2.0.5",
     "js-cookie": "^2.2.1",
     "selenium-webdriver": "^4.0.0-alpha.8",

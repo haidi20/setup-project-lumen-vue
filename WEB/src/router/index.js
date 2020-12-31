@@ -7,6 +7,7 @@ import User from '@/components/user'
 import Layout from '@/components/_layouts'
 import Master from '@/components/master'
 import SignIn from '@/components/auth/signIn'
+import Success from '@/components/success'
 import Dashboard from '@/components/dashboard'
 
 // middleware
@@ -18,6 +19,12 @@ export const routes = [{
         path: '/sign-in',
         name: 'SignIn',
         component: SignIn,
+        icon: null,
+    },
+    {
+        path: '/success',
+        name: 'Success',
+        component: Success,
         icon: null,
     },
     {

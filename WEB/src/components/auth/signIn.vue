@@ -43,6 +43,7 @@
                 </v-btn>
               </v-card-actions>
             </v-card>
+            <div id="firebaseui-auth-container"></div>
           </v-flex>
         </v-layout>
       </v-container>
@@ -51,6 +52,11 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+import * as firebaseui from 'firebaseui'
+import 'firebaseui/dist/firebaseui.css'
+import {firebaseApp} from '@/api/firebaseConfig'
+
 import {mapActions, mapGetters} from 'vuex'
 
 // components
@@ -72,6 +78,18 @@ export default {
     ...mapGetters("auth", [
      "getUser"
     ]),
+  },
+  mounted() {
+    const uiConfig = {
+      signInSuccessUrl: '/success',
+      signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      ]
+    }
+
+    const ui = new firebaseui.auth.AuthUI(firebase.auth());
+    ui.start('#firebaseui-auth-container', uiConfig);
   },
   methods: {
     ...mapActions("auth", [
