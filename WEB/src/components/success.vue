@@ -24,7 +24,7 @@ export default {
     }
   },
   methods: {
-    logOout() {
+    logOut() {
       firebase.auth().signOut();
       this.$router.push('/sign-in').catch(() => {});
     },
